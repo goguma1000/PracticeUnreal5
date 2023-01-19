@@ -1,0 +1,15 @@
+{
+    "Version": "1.1",
+    "Data": {
+        "Source": "d:\\unreal projects\\prac\\myactors\\intermediate\\build\\win64\\unrealeditor\\inc\\myactors\\fountain.gen.cpp",
+        "ProvidedModule": "",
+        "PCH": "d:\\unreal projects\\prac\\myactors\\intermediate\\build\\win64\\myactorseditor\\development\\engine\\sharedpch.engine.shadowerrors.h.pch",
+        "Includes": [
+            "d:\\unreal projects\\prac\\myactors\\intermediate\\build\\win64\\unrealeditor\\development\\myactors\\definitions.myactors.h",
+            "d:\\unreal projects\\prac\\myactors\\source\\myactors\\fountain.h",
+            "d:\\unreal projects\\prac\\myactors\\intermediate\\build\\win64\\unrealeditor\\inc\\myactors\\fountain.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

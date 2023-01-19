@@ -1,0 +1,15 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UnrealEditor-MyActors.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"D:\Unreal Projects\prac\MyActors\Intermediate\Build\Win64\MyActorsEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h.obj"
+"D:\Unreal Projects\prac\MyActors\Intermediate\Build\Win64\UnrealEditor\Development\MyActors\MyActors.cpp.obj"
+"D:\Unreal Projects\prac\MyActors\Intermediate\Build\Win64\UnrealEditor\Development\MyActors\MyActorsGameModeBase.cpp.obj"
+"D:\Unreal Projects\prac\MyActors\Intermediate\Build\Win64\UnrealEditor\Development\MyActors\MyActors.init.gen.cpp.obj"
+"D:\Unreal Projects\prac\MyActors\Intermediate\Build\Win64\UnrealEditor\Development\MyActors\MyActorsGameModeBase.gen.cpp.obj"
+"D:\Unreal Projects\prac\MyActors\Intermediate\Build\Win64\UnrealEditor\Development\MyActors\Default.rc2.res"
+/OUT:"D:\Unreal Projects\prac\MyActors\Intermediate\Build\Win64\UnrealEditor\Development\MyActors\UnrealEditor-MyActors.lib"

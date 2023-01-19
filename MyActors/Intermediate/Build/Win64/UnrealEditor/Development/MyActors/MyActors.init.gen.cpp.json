@@ -1,0 +1,13 @@
+{
+    "Version": "1.1",
+    "Data": {
+        "Source": "d:\\unreal projects\\prac\\myactors\\intermediate\\build\\win64\\unrealeditor\\inc\\myactors\\myactors.init.gen.cpp",
+        "ProvidedModule": "",
+        "PCH": "d:\\unreal projects\\prac\\myactors\\intermediate\\build\\win64\\myactorseditor\\development\\engine\\sharedpch.engine.shadowerrors.h.pch",
+        "Includes": [
+            "d:\\unreal projects\\prac\\myactors\\intermediate\\build\\win64\\unrealeditor\\development\\myactors\\definitions.myactors.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}
