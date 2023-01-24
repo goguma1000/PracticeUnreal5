@@ -169,38 +169,40 @@
     <AdditionalOptions>/std:c++17</AdditionalOptions>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="..\..\MyActors.uproject"/>
-    <None Include="..\..\Source\MyActors.Target.cs"/>
-    <None Include="..\..\Source\MyActorsEditor.Target.cs"/>
-    <None Include="..\..\Config\DefaultEditor.ini"/>
-    <None Include="..\..\Config\DefaultEngine.ini"/>
-    <None Include="..\..\Config\DefaultGame.ini"/>
+    <None Include="..\..\MyActors.uproject" />
+    <None Include="..\..\Source\MyActors.Target.cs" />
+    <None Include="..\..\Source\MyActorsEditor.Target.cs" />
+    <None Include="..\..\Config\DefaultEditor.ini" />
+    <None Include="..\..\Config\DefaultEngine.ini" />
+    <None Include="..\..\Config\DefaultGame.ini" />
     <ClCompile Include="..\..\Source\MyActors\Fountain.cpp">
       <AdditionalIncludeDirectories>$(NMakeIncludeSearchPath);D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\mimalloc\include;D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\LibTiff\Source\Win64;D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\LibTiff\Source;D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\PhysX3\PxShared\include;D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\PhysX3\PxShared\include\cudamanager;D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\PhysX3\PxShared\include\filebuf;D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\PhysX3\PxShared\include\foundation;D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\PhysX3\PxShared\include\pvd;D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\PhysX3\PxShared\include\task;D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\PhysX3\PhysX_3.4\Include;D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\PhysX3\PhysX_3.4\Include\cooking;D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\PhysX3\PhysX_3.4\Include\common;D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\PhysX3\PhysX_3.4\Include\extensions;D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\PhysX3\PhysX_3.4\Include\geometry;</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>$(SolutionDir)Intermediate\Build\Win64\MyActorsEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h;$(SolutionDir)Intermediate\Build\Win64\UnrealEditor\Development\MyActors\Definitions.MyActors.h</ForcedIncludeFiles>
     </ClCompile>
-    <ClInclude Include="..\..\Source\MyActors\Fountain.h"/>
-    <None Include="..\..\Source\MyActors\MyActors.Build.cs"/>
+    <ClInclude Include="..\..\Source\MyActors\Fountain.h" />
+    <None Include="..\..\Source\MyActors\MyActors.Build.cs" />
     <ClCompile Include="..\..\Source\MyActors\MyActors.cpp">
       <AdditionalIncludeDirectories>$(NMakeIncludeSearchPath);D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\mimalloc\include;D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\LibTiff\Source\Win64;D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\LibTiff\Source;D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\PhysX3\PxShared\include;D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\PhysX3\PxShared\include\cudamanager;D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\PhysX3\PxShared\include\filebuf;D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\PhysX3\PxShared\include\foundation;D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\PhysX3\PxShared\include\pvd;D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\PhysX3\PxShared\include\task;D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\PhysX3\PhysX_3.4\Include;D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\PhysX3\PhysX_3.4\Include\cooking;D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\PhysX3\PhysX_3.4\Include\common;D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\PhysX3\PhysX_3.4\Include\extensions;D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\PhysX3\PhysX_3.4\Include\geometry;</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>$(SolutionDir)Intermediate\Build\Win64\MyActorsEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h;$(SolutionDir)Intermediate\Build\Win64\UnrealEditor\Development\MyActors\Definitions.MyActors.h</ForcedIncludeFiles>
     </ClCompile>
-    <ClInclude Include="..\..\Source\MyActors\MyActors.h"/>
+    <ClInclude Include="..\..\Source\MyActors\MyActors.h" />
     <ClCompile Include="..\..\Source\MyActors\MyActorsGameModeBase.cpp">
       <AdditionalIncludeDirectories>$(NMakeIncludeSearchPath);D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\mimalloc\include;D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\LibTiff\Source\Win64;D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\LibTiff\Source;D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\PhysX3\PxShared\include;D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\PhysX3\PxShared\include\cudamanager;D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\PhysX3\PxShared\include\filebuf;D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\PhysX3\PxShared\include\foundation;D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\PhysX3\PxShared\include\pvd;D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\PhysX3\PxShared\include\task;D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\PhysX3\PhysX_3.4\Include;D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\PhysX3\PhysX_3.4\Include\cooking;D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\PhysX3\PhysX_3.4\Include\common;D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\PhysX3\PhysX_3.4\Include\extensions;D:\Epic Games\UE_5.0\Engine\Source\ThirdParty\PhysX3\PhysX_3.4\Include\geometry;</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>$(SolutionDir)Intermediate\Build\Win64\MyActorsEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h;$(SolutionDir)Intermediate\Build\Win64\UnrealEditor\Development\MyActors\Definitions.MyActors.h</ForcedIncludeFiles>
     </ClCompile>
-    <ClInclude Include="..\..\Source\MyActors\MyActorsGameModeBase.h"/>
+    <ClInclude Include="..\..\Source\MyActors\MyActorsGameModeBase.h" />
   </ItemGroup>
   <PropertyGroup>
-    <SourcePath></SourcePath>
+    <SourcePath>
+    </SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <PropertyGroup>
     <CleanDependsOn> $(CleanDependsOn); </CleanDependsOn>
-    <CppCleanDependsOn></CppCleanDependsOn>
+    <CppCleanDependsOn>
+    </CppCleanDependsOn>
   </PropertyGroup>
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
