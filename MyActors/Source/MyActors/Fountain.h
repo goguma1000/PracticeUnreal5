@@ -2,7 +2,8 @@
 
 #pragma once
 
-#include "EngineMinimal.h"
+#include "MyActors.h"
+#include "GameFramework/RotatingMovementComponent.h"
 #include "GameFramework/Actor.h"
 #include "Fountain.generated.h"
 
@@ -11,13 +12,15 @@ class MYACTORS_API AFountain : public AActor
 {
 	GENERATED_BODY()
 	
-public:	
+public:
 	// Sets default values for this actor's properties
 	AFountain();
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+	virtual void PostInitializeComponents() override;
 
 public:	
 	// Called every frame
@@ -35,6 +38,13 @@ public:
 	UPROPERTY(VisibleAnywhere)
 	UParticleSystemComponent* Splash;
 
+	UPROPERTY(VisibleAnywhere)
+	URotatingMovementComponent* Movement;
+
 	UPROPERTY(EditAnywhere, Category=ID)
 	int32 ID;
+
+private:
+	UPROPERTY(EditAnyWhere, Category = Stat, Meta = (AllowPrivateAccess = true))
+	float RotateSpeed;
 };

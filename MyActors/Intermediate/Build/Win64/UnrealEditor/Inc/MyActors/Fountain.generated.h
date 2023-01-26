@@ -13,10 +13,10 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define MYACTORS_Fountain_generated_h
 
-#define FID_MyActors_Source_MyActors_Fountain_h_12_SPARSE_DATA
-#define FID_MyActors_Source_MyActors_Fountain_h_12_RPC_WRAPPERS
-#define FID_MyActors_Source_MyActors_Fountain_h_12_RPC_WRAPPERS_NO_PURE_DECLS
-#define FID_MyActors_Source_MyActors_Fountain_h_12_INCLASS_NO_PURE_DECLS \
+#define FID_MyActors_Source_MyActors_Fountain_h_13_SPARSE_DATA
+#define FID_MyActors_Source_MyActors_Fountain_h_13_RPC_WRAPPERS
+#define FID_MyActors_Source_MyActors_Fountain_h_13_RPC_WRAPPERS_NO_PURE_DECLS
+#define FID_MyActors_Source_MyActors_Fountain_h_13_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesAFountain(); \
 	friend struct Z_Construct_UClass_AFountain_Statics; \
@@ -25,7 +25,7 @@ public: \
 	DECLARE_SERIALIZER(AFountain)
 
 
-#define FID_MyActors_Source_MyActors_Fountain_h_12_INCLASS \
+#define FID_MyActors_Source_MyActors_Fountain_h_13_INCLASS \
 private: \
 	static void StaticRegisterNativesAFountain(); \
 	friend struct Z_Construct_UClass_AFountain_Statics; \
@@ -34,7 +34,7 @@ public: \
 	DECLARE_SERIALIZER(AFountain)
 
 
-#define FID_MyActors_Source_MyActors_Fountain_h_12_STANDARD_CONSTRUCTORS \
+#define FID_MyActors_Source_MyActors_Fountain_h_13_STANDARD_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API AFountain(const FObjectInitializer& ObjectInitializer); \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(AFountain) \
@@ -47,7 +47,7 @@ private: \
 public:
 
 
-#define FID_MyActors_Source_MyActors_Fountain_h_12_ENHANCED_CONSTRUCTORS \
+#define FID_MyActors_Source_MyActors_Fountain_h_13_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	NO_API AFountain(AFountain&&); \
@@ -58,25 +58,25 @@ public: \
 	DEFINE_DEFAULT_CONSTRUCTOR_CALL(AFountain)
 
 
-#define FID_MyActors_Source_MyActors_Fountain_h_9_PROLOG
-#define FID_MyActors_Source_MyActors_Fountain_h_12_GENERATED_BODY_LEGACY \
+#define FID_MyActors_Source_MyActors_Fountain_h_10_PROLOG
+#define FID_MyActors_Source_MyActors_Fountain_h_13_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_MyActors_Source_MyActors_Fountain_h_12_SPARSE_DATA \
-	FID_MyActors_Source_MyActors_Fountain_h_12_RPC_WRAPPERS \
-	FID_MyActors_Source_MyActors_Fountain_h_12_INCLASS \
-	FID_MyActors_Source_MyActors_Fountain_h_12_STANDARD_CONSTRUCTORS \
+	FID_MyActors_Source_MyActors_Fountain_h_13_SPARSE_DATA \
+	FID_MyActors_Source_MyActors_Fountain_h_13_RPC_WRAPPERS \
+	FID_MyActors_Source_MyActors_Fountain_h_13_INCLASS \
+	FID_MyActors_Source_MyActors_Fountain_h_13_STANDARD_CONSTRUCTORS \
 public: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define FID_MyActors_Source_MyActors_Fountain_h_12_GENERATED_BODY \
+#define FID_MyActors_Source_MyActors_Fountain_h_13_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_MyActors_Source_MyActors_Fountain_h_12_SPARSE_DATA \
-	FID_MyActors_Source_MyActors_Fountain_h_12_RPC_WRAPPERS_NO_PURE_DECLS \
-	FID_MyActors_Source_MyActors_Fountain_h_12_INCLASS_NO_PURE_DECLS \
-	FID_MyActors_Source_MyActors_Fountain_h_12_ENHANCED_CONSTRUCTORS \
+	FID_MyActors_Source_MyActors_Fountain_h_13_SPARSE_DATA \
+	FID_MyActors_Source_MyActors_Fountain_h_13_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_MyActors_Source_MyActors_Fountain_h_13_INCLASS_NO_PURE_DECLS \
+	FID_MyActors_Source_MyActors_Fountain_h_13_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
