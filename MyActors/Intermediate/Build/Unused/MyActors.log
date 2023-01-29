@@ -1,23 +1,8 @@
 ﻿  Using bundled DotNet SDK
   Log file: C:\Users\zzzeh\AppData\Local\UnrealBuildTool\Log.txt
   Using 'git status' to determine working set for adaptive non-unity build (D:\Unreal Projects\prac).
-  Building MyActorsEditor...
-  Using Visual Studio 2019 14.29.30146 toolchain (C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133) and Windows 10.0.19041.0 SDK (C:\Program Files (x86)\Windows Kits\10).
-  [Adaptive Build] Excluded from MyActors unity file: Fountain.cpp
-  Determining max actions to execute in parallel (6 physical cores, 6 logical cores)
-    Executing up to 6 processes, one per physical core
-    Requested 1.5 GB free memory per action, 7.49 GB available: limiting max parallel actions to 4
-  Building 9 actions with 4 processes...
-  [1/9] Compile MyActors.cpp
-  [2/9] Compile MyActorsGameModeBase.cpp
-  [3/9] Compile MyActors.init.gen.cpp
-  [4/9] Compile MyActorsGameModeBase.gen.cpp
-  [5/9] Compile Fountain.gen.cpp
-  [6/9] Compile Fountain.cpp
-  [7/9] Link UnrealEditor-MyActors.lib
-     D:\Unreal Projects\prac\MyActors\Intermediate\Build\Win64\UnrealEditor\Development\MyActors\UnrealEditor-MyActors.lib 라이브러리 및 D:\Unreal Projects\prac\MyActors\Intermediate\Build\Win64\UnrealEditor\Development\MyActors\UnrealEditor-MyActors.exp 개체를 생성하고 있습니다.
-  [8/9] Link UnrealEditor-MyActors.dll
-     D:\Unreal Projects\prac\MyActors\Intermediate\Build\Win64\UnrealEditor\Development\MyActors\UnrealEditor-MyActors.suppressed.lib 라이브러리 및 D:\Unreal Projects\prac\MyActors\Intermediate\Build\Win64\UnrealEditor\Development\MyActors\UnrealEditor-MyActors.suppressed.exp 개체를 생성하고 있습니다.
-  [9/9] WriteMetadata MyActorsEditor.target
-  Total time in Parallel executor: 185.21 seconds
-  Total execution time: 186.55 seconds
+  Invalidating makefile for MyActorsEditor (working set of source files changed)
+  Parsing headers for MyActorsEditor
+    Running UnrealHeaderTool "D:\Unreal Projects\prac\MyActors\MyActors.uproject" "D:\Unreal Projects\prac\MyActors\Intermediate\Build\Win64\MyActorsEditor\Development\MyActorsEditor.uhtmanifest" -LogCmds="loginit warning, logexit warning, logdatabase error" -Unattended -WarningsAsErrors -abslog="C:\Users\zzzeh\AppData\Local\UnrealBuildTool\Log_UHT.txt" -installed
+D:/Unreal Projects/prac/MyActors/Source/MyActors/ABGameMode.h(18): error : Unexpected '}'. Did you miss a semi-colon?
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.MakeFile.Targets(45,5): error MSB3073: ""D:\Epic Games\UE_5.0\Engine\Build\BatchFiles\Build.bat" MyActorsEditor Win64 Development -Project="D:\Unreal Projects\prac\MyActors\MyActors.uproject" -WaitMutex -FromMsBuild" 명령이 종료되었습니다(코드: 6).

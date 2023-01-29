@@ -32,6 +32,24 @@
     <Filter Include="Source\MyActors">
       <UniqueIdentifier>{FDE08288-2173-37BC-84C1-6FABE5DF66EA}</UniqueIdentifier>
     </Filter>
+    <ClCompile Include="..\..\Source\MyActors\ABGameMode.cpp">
+      <Filter>Source\MyActors</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyActors\ABGameMode.h">
+      <Filter>Source\MyActors</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MyActors\ABPawn.cpp">
+      <Filter>Source\MyActors</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyActors\ABPawn.h">
+      <Filter>Source\MyActors</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MyActors\ABPlayerController.cpp">
+      <Filter>Source\MyActors</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyActors\ABPlayerController.h">
+      <Filter>Source\MyActors</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\MyActors\Fountain.cpp">
       <Filter>Source\MyActors</Filter>
     </ClCompile>
