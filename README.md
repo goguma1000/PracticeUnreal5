@@ -343,4 +343,126 @@ void AABPlayerController::OnPossess(APawn* aPawn) {
 2. 언리얼 엔진에선 플레이어가 플레이어 컨트롤러를 통해 폰을 조종하는 것을 possess라고 한다.
   ![1](https://user-images.githubusercontent.com/102130574/215333362-f2b9eed5-b62a-483a-8caf-412ba64654ad.PNG)
   
-    에디터의 플레이 버튼을 누르면 위 로그 처럼 플레이어 컨트롤러가 생성되고, 플레이어 설정이 시작된다. &nbsp;우선 플레이어 폰을 생성하고 &nbsp; &nbsp; 플레이어 컨트롤러를 폰에 posseess하고 플레이어 설정이 끝나면 GameMode에서 PostLogin 함수를 호출한다.  
+    에디터의 플레이 버튼을 누르면 위 로그 처럼 플레이어 컨트롤러가 생성되고, 플레이어 설정이 시작된다. &nbsp;우선 플레이어 폰을 생성하고 &nbsp;플레이어 컨트롤러를 폰에 posseess하고 플레이어 설정이 끝나면 GameMode에서 PostLogin 함수를 호출한다.  
+### 2023\-01\-31
+학습내용: 교재 chapter5 실습
+<br>
+
+### ABPawn.h
+~~~cpp
+class MYACTORS_API AABPawn : public APawn
+{
+	...
+public:	
+	virtual void Tick(float DeltaTime) override;
+
+	// Called to bind functionality to input
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	virtual void PostInitializeComponents() override;
+	virtual void PossessedBy(AController* NewController) override;
+
+	UPROPERTY(VisibleAnywhere, Category = Collision)
+	UCapsuleComponent* Capsule;
+	
+	UPROPERTY(VisibleAnywhere, Category = Visual)
+	USkeletalMeshComponent* Mesh;
+	
+	UPROPERTY(VisibleAnywhere, Category = Movement)
+	UFloatingPawnMovement* Movement;
+
+	UPROPERTY(VisibleAnywhere, Category = Camera)
+	USpringArmComponent* SpringArm;
+
+	UPROPERTY(VisibleAnywhere, Category = Camera)
+	UCameraComponent* Camera;
+	
+private:
+	void MoveForward(float NewAxisValue);
+	void MoveRight(float NewAxisValue);
+};
+~~~
+
+### ABPawn.cpp
+~~~cpp
+AABPawn::AABPawn()
+{
+	PrimaryActorTick.bCanEverTick = true;
+
+	Capsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CAPSULE"));
+	Mesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("MESH"));
+	Movement = CreateDefaultSubobject<UFloatingPawnMovement>(TEXT("MOVEMENT"));
+	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SPRINGARM"));
+	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("CAMERA"));
+
+	RootComponent = Capsule;
+	Mesh->SetupAttachment(Capsule);
+	SpringArm->SetupAttachment(Capsule);
+	Camera->SetupAttachment(SpringArm);
+	
+	Capsule->SetCapsuleHalfHeight(88.0f);
+	Capsule->SetCapsuleRadius(34.0f);
+	Mesh->SetRelativeLocationAndRotation(FVector(0.0f, 0.0f, -88.0f), FRotator(0.0f, -90.0f, 0.0f));
+	SpringArm->TargetArmLength = 400.0f;
+	SpringArm->SetRelativeRotation(FRotator(-15.0f, 0.0f, 0.0f));
+
+	static ConstructorHelpers::FObjectFinder<USkeletalMesh> SK_CARDBOARD(TEXT("/Game/InfinityBladeWarriors/Character/CompleteCharacters/SK_CharM_Cardboard.SK_CharM_Cardboard"));
+	if (SK_CARDBOARD.Succeeded()) {
+		Mesh->SetSkeletalMesh(SK_CARDBOARD.Object);
+	}
+
+	Mesh->SetAnimationMode(EAnimationMode::AnimationBlueprint);
+
+	static ConstructorHelpers::FClassFinder<UAnimInstance>WARRIOR_ANIM(TEXT("/Game/Animations/WarriorAnimBlueprint.WarriorAnimBlueprint_C"));
+	if (WARRIOR_ANIM.Succeeded()) {
+		Mesh->SetAnimInstanceClass(WARRIOR_ANIM.Class);
+	}
+
+}
+
+...
+void AABPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+{
+	Super::SetupPlayerInputComponent(PlayerInputComponent);
+
+	PlayerInputComponent->BindAxis(TEXT("MoveForward"), this, &AABPawn::MoveForward);
+	PlayerInputComponent->BindAxis(TEXT("MoveRight"), this, &AABPawn::MoveRight);
+}
+
+void AABPawn::PostInitializeComponents() {
+	Super::PostInitializeComponents();
+	ABLOG_S(Warning);
+}
+
+void AABPawn::PossessedBy(AController* NewController) {
+	ABLOG_S(Warning);
+	Super::PossessedBy(NewController);
+}
+
+void AABPawn::MoveForward(float NewAxisValue) {
+	AddMovementInput(GetActorForwardVector(), NewAxisValue);
+}
+
+void AABPawn::MoveRight(float NewAxisValue) {
+	AddMovementInput(GetActorRightVector(), NewAxisValue);
+}
+
+~~~
+
+<br>
+
+#### 학습내용 정리
+1. SpringArm은 카메라 구도를 편리하게 설정할 수 있는 컴포넌트로 카메라를 SpringArm의 자식으로 설정하고 트랜스 폼을 초기화 하여 자동으로 SpringArm의 끝에 걸린다.
+
+2. 언리얼 엔진은 입력을 처리하기 위해 InputComponent라는 컴포넌트를 사용한다.
+
+   폰의 맴버 함수와 입력 설정을 Binding하면 입력이 폰의 맴버 함수의 인자로 전달된다.
+   
+   이를 Binding하는 함수는 SetupInputComponent 함수이다. BindAxis함수를 사용하여 입력 설정의 이름과 연동할 언리얼 오브젝트 인스터스 함수 포인터를 지정한다.
+	 
+3. 코드로 재생할 애니메이션을 지정할 수 있지만, 규모가 커지면 관리가 힘들기 때문에 언리얼 엔진에서 체계적인 애니메이션 시스템을 설계하기 위해 애니메이션 블루프린트 시스템을 제공한다.
+    
+   언리얼 엔진은 Anim Instance 클래스로 애니메이션 시스템을 관리한다.
+
+    스켈레탈 메시 컴포넌트는 자신의 캐릭터의 애니메이션을 Anim Instance에 위임하는 구조로 설계돼 있다.
+
+    스켈레탈 메시가 애니메이션 블루프린트를 실행시키려면 블루프린트 애셋의 클래스 정보를 Anim Instance 속성에 지정해야 한다. &nbsp; 클래스 정보를 얻기위해 애셋의 래퍼런스 경로 뒤에 &nbsp;'_C'를 붙인다. 
