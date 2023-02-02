@@ -466,3 +466,283 @@ void AABPawn::MoveRight(float NewAxisValue) {
     스켈레탈 메시 컴포넌트는 자신의 캐릭터의 애니메이션을 Anim Instance에 위임하는 구조로 설계돼 있다.
 
     스켈레탈 메시가 애니메이션 블루프린트를 실행시키려면 블루프린트 애셋의 클래스 정보를 Anim Instance 속성에 지정해야 한다. &nbsp; 클래스 정보를 얻기위해 애셋의 래퍼런스 경로 뒤에 &nbsp;'_C'를 붙인다. 
+  
+### 2023\-02\-01
+학습내용: 교재 chapter4 실습
+<br>
+
+### ABCharacter.h
+~~~cpp
+
+#pragma once
+
+#include "MyActors.h"
+#include "GameFramework/Character.h"
+#include "ABCharacter.generated.h"
+
+UCLASS()
+class MYACTORS_API AABCharacter : public ACharacter
+{
+	GENERATED_BODY()
+
+public:
+	// Sets default values for this character's properties
+	AABCharacter();
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
+	enum class EControlMode {
+
+		GTA,
+		DIABLO
+	};
+
+	void SetControlMode(EControlMode NewControlMode);
+	EControlMode CurrentControlMode = EControlMode::GTA;
+	FVector DirectionToMove = FVector::ZeroVector;
+
+	float ArmLengthTo = 0.0f;
+	FRotator ArmRotationTo = FRotator::ZeroRotator;
+	float ArmLengthSpeed = 0.0f;
+	float ArmRotationSpeed = 0.0f;
+
+public:	
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+
+	// Called to bind functionality to input
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	UPROPERTY(VisibleAnywhere, Category = Camera)
+	USpringArmComponent* SpringArm;
+
+	UPROPERTY(VisibleAnywhere, Category = Camera)
+	UCameraComponent* Camera;
+
+private:
+	void UpDown(float NewAxisValue);
+	void LeftRight(float NewAxisValue);
+	void Turn(float NewAxisValue);
+	void LookUp(float NewAxisValue);
+	void SetControlMode(int32 ControlMode);
+	void ViewChange();
+};
+
+~~~
+
+### ABCharacter.cpp
+~~~cpp
+
+#include "ABCharacter.h"
+
+// Sets default values
+AABCharacter::AABCharacter()
+{
+ 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	PrimaryActorTick.bCanEverTick = true;
+	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SPRINGARM"));
+	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("CAMERA"));
+
+	SpringArm->SetupAttachment(GetCapsuleComponent());
+	Camera->SetupAttachment(SpringArm);
+
+	GetMesh()->SetRelativeLocationAndRotation(FVector(0.0f, 0.0f, -88.0f), FRotator(0.0f, -90.0f, 0.0f));
+	SpringArm->TargetArmLength = 400.0f;
+	SpringArm->SetRelativeRotation(FRotator(-15.0f, 0.0f, 0.0f));
+
+	static ConstructorHelpers::FObjectFinder<USkeletalMesh>SK_CARDBOARD(TEXT("/Game/InfinityBladeWarriors/Character/CompleteCharacters/SK_CharM_Cardboard.SK_CharM_Cardboard"));
+	if (SK_CARDBOARD.Succeeded()) {
+		GetMesh()->SetSkeletalMesh(SK_CARDBOARD.Object);
+	}
+
+	GetMesh()->SetAnimationMode(EAnimationMode::AnimationBlueprint);
+
+	static ConstructorHelpers::FClassFinder<UAnimInstance> WARRIOR_ANIM(TEXT("/Game/Animations/WarriorAnimBlueprint.WarriorAnimBlueprint_C"));
+	if (WARRIOR_ANIM.Succeeded()) {
+		GetMesh()->SetAnimInstanceClass(WARRIOR_ANIM.Class);
+	}
+
+	SetControlMode(EControlMode::DIABLO);
+
+	ArmLengthSpeed = 3.0f;
+	ArmRotationSpeed = 10.0f;
+}
+
+// Called when the game starts or when spawned
+void AABCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+	
+}
+
+// Called every frame
+void AABCharacter::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	SpringArm->TargetArmLength = FMath::FInterpTo(SpringArm->TargetArmLength, ArmLengthTo, DeltaTime, ArmLengthSpeed);
+
+	switch (CurrentControlMode)
+	{
+	case EControlMode::DIABLO:
+		SpringArm->SetRelativeRotation(FMath::RInterpTo(SpringArm->GetRelativeRotation(), ArmRotationTo, DeltaTime, ArmRotationSpeed));
+		if (DirectionToMove.SizeSquared() > 0.0f) {
+			GetController()->SetControlRotation(FRotationMatrix::MakeFromX(DirectionToMove).Rotator());
+			AddMovementInput(DirectionToMove);
+		}
+		break;
+	default:
+		break;
+	}
+
+}
+
+// Called to bind functionality to input
+void AABCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+{
+	Super::SetupPlayerInputComponent(PlayerInputComponent);
+
+	PlayerInputComponent->BindAxis(TEXT("MoveForward"), this, &AABCharacter::UpDown);
+	PlayerInputComponent->BindAxis(TEXT("MoveRight"), this, &AABCharacter::LeftRight);
+	PlayerInputComponent->BindAxis(TEXT("Turn"), this, &AABCharacter::Turn);
+	PlayerInputComponent->BindAxis(TEXT("LookUp"), this, &AABCharacter::LookUp);
+
+	PlayerInputComponent->BindAction(TEXT("ViewChange"), EInputEvent::IE_Pressed, this, &AABCharacter::ViewChange);
+}
+
+void AABCharacter::UpDown(float NewAxisValue) {
+	switch (CurrentControlMode)
+	{
+	case EControlMode::GTA:
+		AddMovementInput(FRotationMatrix(GetControlRotation()).GetUnitAxis(EAxis::X), NewAxisValue);
+		break;
+	case EControlMode::DIABLO:
+		DirectionToMove.X = NewAxisValue;
+		break;
+	default:
+		break;
+	}
+}
+
+void AABCharacter::LeftRight(float NewAxisValue) {
+	switch (CurrentControlMode)
+	{
+	case EControlMode::GTA:
+		AddMovementInput(FRotationMatrix(GetControlRotation()).GetUnitAxis(EAxis::Y), NewAxisValue);
+		break;
+	case EControlMode::DIABLO:
+		DirectionToMove.Y = NewAxisValue;
+		break;
+	default:
+		break;
+	}
+}
+
+void AABCharacter::Turn(float NewAxisValue) {
+	switch (CurrentControlMode)
+	{
+	case EControlMode::GTA:
+		AddControllerYawInput(NewAxisValue);
+		break;
+	default:
+		break;
+	}
+}
+
+void AABCharacter::LookUp(float NewAxisValue) {
+	switch (CurrentControlMode)
+	{
+	case EControlMode::GTA:
+		AddControllerPitchInput(NewAxisValue);
+		break;
+	default:
+		break;
+	}
+}
+
+void AABCharacter::SetControlMode(EControlMode NewControlMode) {
+	
+	CurrentControlMode = NewControlMode;
+	switch (CurrentControlMode)
+	{
+	case EControlMode::GTA:
+		//SpringArm->TargetArmLength = 450.0f;
+		//SpringArm->SetRelativeRotation(FRotator::ZeroRotator);
+		ArmLengthTo = 450.f;
+		SpringArm->bUsePawnControlRotation = true;
+		SpringArm->bInheritPitch = true;
+		SpringArm->bInheritYaw = true;
+		SpringArm->bInheritRoll = true;
+		SpringArm->bDoCollisionTest = true;
+		bUseControllerRotationYaw = false;
+		GetCharacterMovement()->bOrientRotationToMovement = true;
+		GetCharacterMovement()->bUseControllerDesiredRotation = false;
+		GetCharacterMovement()->RotationRate = FRotator(0.0f, 720.0f, 0.0f);
+		break;
+
+	case EControlMode::DIABLO:
+		//SpringArm->TargetArmLength = 800.0f;
+		//SpringArm->SetRelativeRotation(FRotator(-45.0f, 0.0f, 0.0f));
+		ArmLengthTo = 800.0f;
+		ArmRotationTo = FRotator(-45.0f, 0.0f, 0.0f);
+		SpringArm->bUsePawnControlRotation = false;
+		SpringArm->bInheritPitch = false;
+		SpringArm->bInheritRoll = false;
+		SpringArm->bInheritYaw = false;
+		SpringArm->bDoCollisionTest = false;
+		bUseControllerRotationYaw = false;
+		GetCharacterMovement()->bOrientRotationToMovement = false;
+		GetCharacterMovement()->bUseControllerDesiredRotation = true;
+		GetCharacterMovement()->RotationRate = FRotator(0.0f, 720.0f, 0.0f);
+		break;
+
+	default:
+		break;
+	}
+	
+}
+
+void AABCharacter::ViewChange() {
+	switch (CurrentControlMode) {
+	case EControlMode::GTA:
+		GetController()->SetControlRotation(GetActorRotation());
+		SetControlMode(EControlMode::DIABLO);
+		break;
+	case EControlMode::DIABLO:
+		GetController()->SetControlRotation(SpringArm->GetRelativeRotation());
+		SetControlMode(EControlMode::GTA);
+		break;
+	}
+}
+~~~
+
+<br>
+
+#### 학습내용 정리
+1. 언리얼 엔진은 플레이어블 폰을 좀더 효율적으로 제작하기 위해 Character클래스를 제공.
+
+   Character클래스는 Pawn 클래스를 상속받고 있다.
+   
+   Character클래스는 위에서 작성한 ABPawn과 동일하게 Capsule 컴포넌트, SkeletalMesh 컴포넌트를 사용하며 CharacterMovement 컴포넌트를 사용하여 움직임을 관리.
+   
+   CharacterMovement 컴포넌트는 FloatingPawnMovement 컴포넌트에 비해 다음과 같은 장점을 가지고 있다.
+   
+       *점프와 같은 중력을 반영한 움직임을 제공.
+       *기어가기, 수영, 비행등 다양한 이동 모드를 설정할 수 있고, 현재 움직임에 대해 좀 더 많은 정보를 전달.
+       *멀티 플레이 네트워크 환경에서 캐릭터 움직임을 자동으로 동기화.
+   
+2. 언리얼 엔진은 캐릭터의 회전을 위해 AddControllerInpuYaw, Roll, Pitch라는 세 가지 명령어를 제공함.
+
+       *Yaw: z축 회전
+       *Roll: y축 회전
+       *Pitch: x축 회전
+    
+    언리얼 엔진의 Character모델은 기본적으로 컨트롤 회전의 Yaw회전과 Pawn의 Yaw회전이 연동돼 있고, 이를 지정하는 속성이 액터의 Pawn섹션에 위치한 UseControllerRotationYaw이다.
+ 
+    캐릭터 무브먼트 컴포넌트의 OrientRotationToMovement 기능을 사용하면 캐릭터가 움직이는 방향으로 캐릭터를 회전시켜준다.
+    
+3. C++은 class키워드로 열거형을 선언하는 방식과 class없이 선언하는 방식이 있는데 전자의 방식은 다른 열거형 간의 묵시적 변환을 혀용하지 않는다.
+
+4. 언리얼 엔진의 Axis 이벤트와 Tick 이벤트는 모두 매 프레임마다 호출되는데, 플레이어의 입력 값에 따라 엑터의 행동을 결정해야 하므로, 두 이벤트 함수가 매프레임마다 호출되더라도 입력함수를 먼저 호출한다.
