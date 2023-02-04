@@ -35,6 +35,12 @@
     <Filter Include="Source\MyActors">
       <UniqueIdentifier>{FDE08288-2173-37BC-84C1-6FABE5DF66EA}</UniqueIdentifier>
     </Filter>
+    <ClCompile Include="..\..\Source\MyActors\ABAnimInstance.cpp">
+      <Filter>Source\MyActors</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyActors\ABAnimInstance.h">
+      <Filter>Source\MyActors</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\MyActors\ABCharacter.cpp">
       <Filter>Source\MyActors</Filter>
     </ClCompile>

@@ -54,4 +54,5 @@ private:
 	void LookUp(float NewAxisValue);
 	void SetControlMode(int32 ControlMode);
 	void ViewChange();
+
 };
