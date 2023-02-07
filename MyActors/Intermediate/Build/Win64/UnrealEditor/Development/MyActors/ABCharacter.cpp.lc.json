@@ -205,7 +205,9 @@
             "d:\\epic games\\ue_5.0\\engine\\source\\runtime\\engine\\classes\\kismet\\gameplaystaticstypes.h",
             "d:\\epic games\\ue_5.0\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\gameplaystaticstypes.generated.h",
             "d:\\epic games\\ue_5.0\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\gameplaystatics.generated.h",
-            "d:\\unreal projects\\prac\\myactors\\intermediate\\build\\win64\\unrealeditor\\inc\\myactors\\abcharacter.generated.h"
+            "d:\\unreal projects\\prac\\myactors\\intermediate\\build\\win64\\unrealeditor\\inc\\myactors\\abcharacter.generated.h",
+            "d:\\unreal projects\\prac\\myactors\\source\\myactors\\abaniminstance.h",
+            "d:\\unreal projects\\prac\\myactors\\intermediate\\build\\win64\\unrealeditor\\inc\\myactors\\abaniminstance.generated.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []
