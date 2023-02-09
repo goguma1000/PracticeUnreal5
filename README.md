@@ -468,7 +468,7 @@ void AABPawn::MoveRight(float NewAxisValue) {
     스켈레탈 메시가 애니메이션 블루프린트를 실행시키려면 블루프린트 애셋의 클래스 정보를 Anim Instance 속성에 지정해야 한다. &nbsp; 클래스 정보를 얻기위해 애셋의 래퍼런스 경로 뒤에 &nbsp;'_C'를 붙인다. 
   
 ### 2023\-02\-01
-학습내용: 교재 chapter4 실습
+학습내용: 교재 chapter6 실습
 <br>
 
 ### ABCharacter.h
@@ -746,3 +746,372 @@ void AABCharacter::ViewChange() {
 3. C++은 class키워드로 열거형을 선언하는 방식과 class없이 선언하는 방식이 있는데 전자의 방식은 다른 열거형 간의 묵시적 변환을 혀용하지 않는다.
 
 4. 언리얼 엔진의 Axis 이벤트와 Tick 이벤트는 모두 매 프레임마다 호출되는데, 플레이어의 입력 값에 따라 엑터의 행동을 결정해야 하므로, 두 이벤트 함수가 매프레임마다 호출되더라도 입력함수를 먼저 호출한다.
+
+### 2023\-02\-04
+학습내용: 교재 chapter7 실습
+<br>
+
+### ABAnimInstance.h
+~~~cpp
+#pragma once
+
+#include "MyActors.h"
+#include "Animation/AnimInstance.h"
+#include "ABAnimInstance.generated.h"
+
+UCLASS()
+class MYACTORS_API UABAnimInstance : public UAnimInstance
+{
+	GENERATED_BODY()
+
+public:
+	UABAnimInstance();
+	virtual void NativeUpdateAnimation(float DeltaSeconds) override;
+private:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Pawn, Meta = (AllowPrivateAccess = true))
+	float CurrentPawnSpeed = 0.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Pawn, Meta = (AllowPrivateAccess = true))
+	bool IsInAir;
+};
+
+~~~
+
+### ABAnimInstance.h
+~~~cpp
+#include "ABAnimInstance.h"
+
+UABAnimInstance::UABAnimInstance() {
+	CurrentPawnSpeed = 0.0f;
+	IsInAir = false;
+}
+
+void UABAnimInstance::NativeUpdateAnimation(float DeltaSeconds) {
+	Super::NativeUpdateAnimation(DeltaSeconds);
+
+	auto Pawn = TryGetPawnOwner();
+	if (::IsValid(Pawn)) {
+		CurrentPawnSpeed = Pawn->GetVelocity().Size();
+		auto Character = Cast<ACharacter>(Pawn);
+		if (Character) {
+			IsInAir = Character->GetMovementComponent()->IsFalling();
+		}
+	}
+}
+
+~~~
+
+### ABCharacter.cpp
+~~~cpp
+//점프기능
+AABCharacter::AABCharacter()
+{
+	...
+	GetCharacterMovement()->JumpZVelocity = 800.0f;
+}
+
+void AABCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+{
+        ...
+	PlayerInputComponent->BindAction(TEXT("Jump"), EInputEvent::IE_Pressed, this, &ACharacter::Jump);
+}
+
+~~~
+
+#### 학습내용 정리
+1. 언리얼 엔진에서 제공하는 애니메이션 블루프린트는 애님 그래프와 애님 인스턴스로 구성되어있다.
+	
+		*애님 인스턴스: 스켈레탈 메시를 소유하는 폰의 정보를 받아 애님그래프가 참조할 데이터를 제공.
+		*애님 그래프: 애님 인스턴스의 변수 값에 따라 변화하는 애니메이션 시스템을 설계하는 공간.
+
+2. 블루프린트에서 변수에 접근할 수 있게 UPROPERTY매크로에 BlueprintReadOnly, BlueprintReadWrite 키워드를 작성한다.
+
+3. 애님 인스턴스 클래스는 틱마다 호출되는 NativeAnimationUpdate 함수를 제공한다.
+   
+   언리얼 엔진은 입력시스템->게임 로직->애니메이션 시스템순으로 로직을 실행한다.
+   
+   플레이어의 입력을 받은 후 그 입력을 처리하고 애니메이션을 실행하는 것이 자연스럽기 때문.
+
+4. 언리얼 엔진은 스켈레톤 구성이 달라도 애니메이션을 교환할 수 있는 애니메이션 리타겟이란 기능을 제공한다.
+   
+   언리얼 엔진5에서 애니메이션 리타겟을 사용하는 방법은 다음과 같다.
+   
+   		*소스 스켈레톤의 IK_Rig을 만든 후 연동할 본(Bone)들을 체인한다.
+		*타겟 스켈레톤의 IK_Rig도 위와 동일한 방식으로 제작한다.
+		*IK_리타기터를 생성 후 리타깃 할 소스IK와 타깃IK를 할당한다.
+		*복제할 애니메이션을 선택후 애니메이션 에셋 리타겟 버튼을 눌러 리타기터를 할당한 후 애니메이션을 복제한다.
+	* 결과 ![1234](https://user-images.githubusercontent.com/102130574/217860557-1cd7c80b-a2df-41c3-ad7b-8cd9cb27e298.PNG)
+	
+### 2023\-02\-07
+학습내용: 교재 chapter8 실습
+<br>
+
+### ABCharacter.h
+~~~cpp
+...
+private:
+	...
+	void Attack();
+
+	UFUNCTION()
+	void OnAttackMontageEnded(UAnimMontage* Montage, bool bInterrupted);
+
+	void AttackStartComboState();
+	void AttackEndComboState();
+
+private:
+	UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category = Attack, Meta = (AllowPrivateAccess = true))
+	bool IsAttacking;
+
+	UPROPERTY()
+	class UABAnimInstance* ABAnim;
+
+	UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category = Attack, Meta = (AllowPrivateAccess = true))
+	bool CanNextCombo;
+
+	UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category = Attack, Meta = (AllowPrivateAccess = true))
+	bool IsComboInputOn;
+
+	UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category = Attack, Meta = (AllowPrivateAccess = true))
+	int32 CurrentCombo;
+
+	UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category = Attack, Meta = (AllowPrivateAccess = true))
+	int32 MaxCombo;
+};
+
+~~~
+
+### ABCharacter.cpp
+~~~cpp
+...
+#include "ABAnimInstance.h"
+
+AABCharacter::AABCharacter()
+{
+ 	...
+	IsAttacking = false;
+
+	MaxCombo = 4;
+	AttackEndComboState();
+}
+void AABCharacter::PostInitializeComponents() {
+	Super::PostInitializeComponents();
+	ABAnim = Cast<UABAnimInstance>(GetMesh()->GetAnimInstance());
+	ABCHECK(nullptr != ABAnim);
+	ABAnim->OnMontageEnded.AddDynamic(this, &AABCharacter::OnAttackMontageEnded);
+	ABAnim->OnNextAttackCheck.AddLambda([this]()->void {
+		ABLOG(Warning, TEXT("OnNextAttackCheck"));
+		CanNextCombo = false;
+		if (IsComboInputOn) {
+			AttackStartComboState();
+			ABAnim->JumpToAttackMontageSection(CurrentCombo);
+		}
+	});
+}
+...
+void AABCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+{
+	...
+	PlayerInputComponent->BindAction(TEXT("Attack"), EInputEvent::IE_Pressed, this, &AABCharacter::Attack);
+}
+
+...
+
+void AABCharacter::Attack() {
+	if (IsAttacking) {
+		ABCHECK(FMath::IsWithinInclusive<int32>(CurrentCombo, 1, MaxCombo));
+		if (CanNextCombo) {
+			IsComboInputOn = true;
+		}
+	}
+	else {
+		ABCHECK(CurrentCombo == 0);
+		AttackStartComboState();
+		ABAnim->PlayAttackMontage();
+		ABAnim->JumpToAttackMontageSection(CurrentCombo);
+		IsAttacking = true;
+	}
+}
+
+void AABCharacter::OnAttackMontageEnded(UAnimMontage* Montage, bool bInterrupted) {
+	ABCHECK(IsAttacking);
+	ABCHECK(CurrentCombo > 0);
+	IsAttacking = false;
+	AttackEndComboState();
+
+}
+
+void AABCharacter::AttackStartComboState() {
+	CanNextCombo = true;
+	IsComboInputOn = false;
+	ABCHECK(FMath::IsWithinInclusive<int32>(CurrentCombo, 0, MaxCombo - 1));
+	CurrentCombo = FMath::Clamp<int32>(CurrentCombo + 1, 1, MaxCombo);
+	
+}
+
+void AABCharacter::AttackEndComboState() {
+	IsComboInputOn = false;
+	CanNextCombo = false;
+	CurrentCombo = 0;
+}
+
+~~~
+
+### ABAnimInstance.h
+~~~cpp
+#pragma once
+
+#include "MyActors.h"
+#include "Animation/AnimInstance.h"
+#include "ABAnimInstance.generated.h"
+
+DECLARE_MULTICAST_DELEGATE(FOnNextAttackCheckDelegate);
+DECLARE_MULTICAST_DELEGATE(FOnAttackHitCheckDelegate);
+
+UCLASS()
+class MYACTORS_API UABAnimInstance : public UAnimInstance
+{
+	GENERATED_BODY()
+
+public:
+	...
+	void PlayAttackMontage();
+	void JumpToAttackMontageSection(int32 NewSection);
+public:
+	FOnNextAttackCheckDelegate OnNextAttackCheck;
+	FOnAttackHitCheckDelegate OnAttackHitCheck;
+private:
+	UFUNCTION()
+	void AnimNotify_AttackHitCheck();
+	UFUNCTION()
+	void AnimNotify_NextAttackCheck();
+
+	FName GetAttackMontageSectionName(int32 Section);
+private:
+	...
+	
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = Attack, Meta = (AllowPrivateAccess = true))
+	UAnimMontage* AttackMontage;
+
+};
+
+~~~
+
+### ABAnimInstance.cpp
+~~~cpp
+
+#include "ABAnimInstance.h"
+
+UABAnimInstance::UABAnimInstance() {
+	...
+	static ConstructorHelpers::FObjectFinder<UAnimMontage>ATTACK_MONTAGE(TEXT("/Game/Animations/SK_Mannequin_Skeleton_Montage.SK_Mannequin_Skeleton_Montage"));
+	if (ATTACK_MONTAGE.Succeeded()) {
+		AttackMontage = ATTACK_MONTAGE.Object;
+	}
+}
+
+void UABAnimInstance::NativeUpdateAnimation(float DeltaSeconds) {
+	Super::NativeUpdateAnimation(DeltaSeconds);
+
+	auto Pawn = TryGetPawnOwner();
+	if (::IsValid(Pawn)) {
+		CurrentPawnSpeed = Pawn->GetVelocity().Size();
+		auto Character = Cast<ACharacter>(Pawn);
+		if (Character) {
+			IsInAir = Character->GetMovementComponent()->IsFalling();
+		}
+	}
+}
+
+void UABAnimInstance::PlayAttackMontage() {
+	Montage_Play(AttackMontage, 1.0f);
+}
+
+void UABAnimInstance::AnimNotify_AttackHitCheck() {
+	
+	OnAttackHitCheck.Broadcast();
+}
+
+void UABAnimInstance::AnimNotify_NextAttackCheck() {
+	ABLOG_S(Warning);
+	OnNextAttackCheck.Broadcast();
+}
+
+void UABAnimInstance::JumpToAttackMontageSection(int32 NewSection) {
+	ABCHECK(Montage_IsPlaying(AttackMontage));
+	Montage_JumpToSection(GetAttackMontageSectionName(NewSection), AttackMontage);
+}
+
+FName UABAnimInstance::GetAttackMontageSectionName(int32 Section) {
+	ABCHECK(FMath::IsWithinInclusive<int32>(Section, 1, 4), NAME_None);
+	return FName(*FString::Printf(TEXT("Attack%d"), Section)); 
+}
+
+~~~
+
+### MyActors.h
+~~~cpp
+#pragma once
+
+#include "EngineMinimal.h"
+
+...
+#define ABCHECK(Expr, ...) {if(!(Expr)) {ABLOG(Error, TEXT("ASSERTION : %s"),TEXT("'"#Expr"'")); return __VA_ARGS__;}}
+
+~~~
+
+#### 학습내용 정리
+1. 스테이트 머신을 사용하여 모든 공격에 대한 스테이트를 생성하고 트랜지션을 연결하여 구현할 수 있지만 스테이트를 계속 추가하면 스테이트 머신의 설계가 복잡해진다.
+
+   언리얼 엔진은 스테이트 머신의 확장 없이 특정 상황에서 원하는 애니메이션을 발동시키는 애니메이션 몽타주라는 기능을 제공한다.
+   
+   몽타주는 섹션 단위로 애니메이션을 관리하며, 애니메이션들을 자르고 붙이는 기능을 제공한다.
+   
+   애니메이션 블루프린트에서 몽타주를 재생하기 위해 slot노드를 사용한다.
+   
+2. UPROPERTY에 설정하는 키워드인 EditAnywhere와 VisibleAnywhere에 있는 Anywher 키워드는 에디터와의 연동 방법에 따라 DefaultOnly와 InstanceOnly로 나뉜다.
+
+   DefaultOnly는 클래스의 기본값을 담당하는 블루프린트 편집 화면에서만 보여진다.
+   
+   InstanceOnly는 인스턴스 속성을 보여주는 에디터 뷰포트에서만 보여진다.
+
+3. 델리게이트(Delegate)는 넓은 의미로 특정 개체가 해야 할 로직을 다른 객체가 대신 처리할 수 있도록 만드는 설계의 개념을 의미한다.
+   
+   언리얼 엔진의 델리게이트는 A객체가 B객체에 작업 명령을 내릴 때 A의 함수를 B객체의 등록하고 명령을 내리면 B에서 명령을 실행하고 작업이 끝나면 A에게 알려주는 설계 방식을 의미.
+   
+  		 C++은 델리게이트 시스템을 지원하지 않기 때문에 언리얼 엔진에서 델리게이트를 사용하려면 별도로 구축한 델리게이트 프레임워크를 사용해야한다.
+   
+   		언리얼 엔진에서 델리게이트는 C++객체에만 사용할 수 있는 델리게이트와 C++, 블루프린트 객체가 모두 사용할 수 있는 델리게이트로 나뉜다.
+   
+   		블루프린트 오브젝트는 멤버 함수에 대한 정보를 저장하고 로딩하는 직렬화 메커니즘이 들어있기 때문에 일반 C++언어가 관리하는 방법으로 멤버함수를 관리할 수 없다.
+   	
+   		그래서 블루프린트와 관련된 C++함수는 모두 UFUNCTION 매크로를 사용해야 한다.
+   
+  	 	이렇게 블루프린트 객체와도 연동하는 델리게이트를 언리얼 엔진에서는 다이내믹 델리게이트라고 한다.
+   		
+4. 애님 인스턴스에는 애니메이션 몽타주 재생이 끝나면 발동하는 OnMontageEnded라는 델리게이트를 제공한다.
+   
+   OnMontageEnded 델리게이트는 블루프린트와 호환되는 성질 외에도 여러개의 함수를 받을 수 있어서 행동이 끝나면 등록된 모든 함수들에게 모두 알려준다.
+   
+   이러한 델리게이트를 멀티캐스트 델리게이트라고 한다.
+   
+   언리얼 엔진에서 델리게이트의 선언은 언리얼이 제공하는 메크로를 통해 정의되며, 이렇게 정의된 델리게이트의 형식을 시그니쳐라고 한다.
+   
+   DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnMotageEndedMCDelegate, UAnimMontage*, Montage, bool, bInterrupted);
+   
+5. 언리얼 엔진의 애니메이션 시스템은 애니메이션을 재생하는 동안 특정 타이밍에 애님 인스턴스에게 신호를 보내는 애니메이션 노티파이라는 기능을 제공한다.
+
+   노티파이가 호출되면 언리얼 엔진은 자동으로 애님 인스턴스 클래스의 'AnimNotify_노티파이명' 이라는 이름의 멤버 함수를 찾아서 호출한다.
+   
+   해당 멤버함수는 언리얼 런타임이 찾을 수 있도록 반드시 UFUNCTION 매크로가 지정돼야 한다.
+
+   애니메이션 노티파이의 Tick Type은 Queued와 Branching Point가 있다.
+   
+   Queued는 비동기 방식으로 신호를 받게 돼서 적절한 타이밍에 신호를 받는 것을 놓치게 될 수 있다. Queued는 주로 타이밍에 민감하지 않은 사운드나 이펙트를 발생시킬 때 사용하는 것이 적합하다.
+   
+   Branching Point는 해당 프레임에 즉각적으로 반응한다.
+   
+6. Montage_JumpToSection함수를 사용하여 애니메이션 몽타주에서 애니메이션 섹션을 변경할 수 있다.
+   		
+		*섹션을 이동하는 코드를 올바르게 작성하여도 다음 원하는 섹션으로 이동하지 않는 오류가 생기면 애니메이션 몽타주의 블랜드 아웃 시간값을 적절히 조절하면 오류를 해결할 수 있다.
+   
