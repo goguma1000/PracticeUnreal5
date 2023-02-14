@@ -1115,3 +1115,198 @@ FName UABAnimInstance::GetAttackMontageSectionName(int32 Section) {
    		
 		*섹션을 이동하는 코드를 올바르게 작성하여도 다음 원하는 섹션으로 이동하지 않는 오류가 생기면 애니메이션 몽타주의 블랜드 아웃 시간값을 적절히 조절하면 오류를 해결할 수 있다.
    
+### 2023\-02\-14
+학습내용: 교재 chapter9 실습
+<br>
+
+### AABCharacter.h
+~~~cpp
+...
+public:	
+	...
+	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser)override;
+
+	...
+
+private:
+	...
+
+private:
+	...
+	
+	UPROPERTY(VIsibleInstanceOnly, BlueprintReadOnly, Category = Attack, Meta = (AllowPrivateAccess = true))
+	float AttackRange;
+
+	UPROPERTY(VisibleInstanceOnly, BlueprintReadOnly, Category = Attack, Meta = (AllowPrivateAccess = true))
+	float AttackRadius;
+};
+
+~~~
+
+### AABCharacter.h
+~~~cpp
+// Fill out your copyright notice in the Description page of Project Settings.
+
+
+...
+#include "DrawDebugHelpers.h"
+
+// Sets default values
+AABCharacter::AABCharacter()
+{
+ 	...
+	
+	GetCapsuleComponent()->SetCollisionProfileName(TEXT("ABCharacter"));
+	AttackRange = 200.0f;
+	AttackRadius = 50.0f;
+}
+void AABCharacter::PostInitializeComponents() {
+	...
+	
+	ABAnim->OnAttackHitCheck.AddUObject(this, &AABCharacter::AttackCheck);
+}
+
+void AABCharacter::AttackCheck() {
+	FHitResult HitResult;
+	FCollisionQueryParams Params(NAME_None, false, this);
+	bool bResult = GetWorld()->SweepSingleByChannel(
+		HitResult,
+		GetActorLocation(),
+		GetActorLocation() + GetActorForwardVector() * AttackRange,
+		FQuat::Identity,
+		ECollisionChannel::ECC_GameTraceChannel2,
+		FCollisionShape::MakeSphere(AttackRadius),
+		Params);
+	
+#if ENABLE_DRAW_DEBUG
+	FVector TraceVec = GetActorForwardVector() * AttackRange;
+	FVector Center = GetActorLocation() + TraceVec * 0.5f;
+	float HalfHeight = AttackRange * 0.5f + AttackRadius;
+	FQuat CapsuleRot = FRotationMatrix::MakeFromZ(TraceVec).ToQuat();
+	FColor DrawColor = bResult ? FColor::Green : FColor::Red;
+	float DebugLifeTime = 5.0f;
+
+	DrawDebugCapsule(GetWorld(),
+		Center,
+		HalfHeight,
+		AttackRadius,
+		CapsuleRot,
+		DrawColor,
+		false,
+		DebugLifeTime);
+#endif
+	if (bResult) {
+		if (HitResult.GetActor()->IsValidLowLevel()) {
+			ABLOG(Warning, TEXT("Hit Actor Name : %s"), *HitResult.GetActor()->GetName());
+			
+			FDamageEvent DamageEvent;
+			HitResult.GetActor()->TakeDamage(50.0f, DamageEvent, GetController(), this);
+		}
+	}
+}
+
+float AABCharacter::TakeDamage(float DamageAmount, FDamageEvent const& FDamageEvent, AController* EventInstigator, AActor* DamageCauser) {
+	float FinalDamage = Super::TakeDamage(DamageAmount,FDamageEvent,EventInstigator,DamageCauser);
+	ABLOG(Warning, TEXT("Actor : %s took Damage : %f"), *GetName(), FinalDamage);
+	if (FinalDamage > 0.0f) {
+		ABAnim->SetDeadAnim();
+		SetActorEnableCollision(false);
+	}
+	return FinalDamage;
+}
+~~~
+
+
+#### 학습내용 정리
+1. 언리얼 엔진에서 콜리전은 크게 세 가지 방법으로 제작할 수 있다.
+	
+		*스태틱메시 애셋: 스태틱메시 애셋에 콜리전 영역을 심는 방법.
+		
+		*기본도형 컴포넌트: 구체, 박스, 캡슐의 기본도형을 사용해 충돌 영역을 지정하는 방법.
+		
+		*피직스 애셋: 특정 상황에서 캐릭터의 각 관절이 흐느적거리는 RagDoll효과를 구현할 때 사용. 
+		              캐릭터의 각 부위에 기본 도형으로 충돌 영역 설정.
+
+2. 충돌체에는 반드시 하나의 콜리전 채널을 설정해야 하며 언리얼 엔진은 여덟개의 기본 콜리전 채널을 제공한다.
+		
+		*WorldStatic: 움직이지 않는 정적인 배경 엑터에 사용. 주로 스태틱메시 액터에 있는 스태틱메시 컴포넌트에 사용.
+ 		
+		*WorldDynamic: 움직이는 액터에 사용하는 콜리전 채널. 블루프린트에 속한 스태틱메시 컴포넌트에 사용.
+		
+		*Pawn: 플레이어가 조종하는 물체에 주로 사용.
+		
+		*Visibility: 배경 물체가 시각적으로 보이는지 탐지하는 데 사용. 마우스로 물체를 선택하는 Picking기능을 구현할 때 사용.
+		
+		*Camera: 카메라 설정을 위해 카메라와 목표물 간에 장애물이 있는지 탐지.
+		
+		*PhysicsBody: 물리 시뮬레이션으로 움직이는 컴포넌트에 설정.
+
+3. Collision Enabled 항목엔 다음과 같은 값이 있다.
+		
+		*Query: 두 물체의 충돌 영역이 서로 겹치는지 테스트 함. 
+		        충돌 영역의 겹침을 감지하는 것을 언리얼 엔진에선 Overlap이라고 함.
+		
+		*Physics: 물리적인 시뮬레이션을 사용할 때 설정.
+		
+		*Query and Physics: 위의 두 기능을 모두 사용하는 설정.
+
+4. 콜리전 채널과의 반응엔 3가지가 존재한다.
+		
+		*Ignore: 콜리전이 있어도 충돌을 무시.
+		
+		*Overlap: Ignore와 동일하게 물체가 뚫고 지나갈 수 있지만 이벤트를 발생시킨다.
+		
+		*Block: 물체가 뚫고 지나가지 못하도록 막는다.
+
+5. 콜리전 채널은 다시 오브젝트 채널과 트레이스 채널로 나뉜다.
+		
+		*오브젝트 채널: 콜리전 영역에 지정하는 콜리전 채널.
+		
+		*트레이스 채널: 어떤 행동에 설정하는 콜리전 채널.
+	
+    언리얼 엔진은 게임에서 활용할 수 있도록 총 32개의 콜리전 채널을 제공한다.
+    
+    32개중 여덟 개는 언리얼 엔진이 기본으로 사용하고, 여섯 개는 엔진에서 다른 용도로 사용하도록 예약돼 있다. 이를 뺀 18개만 사용가능.
+    
+
+6. 트레이스 채널을 사용해 물리적 충돌 여부를 가리는 함수 중 하나로 SweepSingleByChannel이 있다. 물리는 월드의 기능이므로 GetWorld() 함수를 사용해 월드에게 명령을 내려야 한다.
+
+   해당 함수는 기본 도형을 인자로 받은 후 시작 지점에서 끝 지점까지 쓸면서 해당 영역 내에 물리 판정이 일어났는지를 조사한다.
+   
+   해당 함수의 파라미터는 다음과 같다.
+   		
+		*HitResult: 물리적 충돌이 탐지된 경우 관련된 정보를 담을 구조체.
+		
+		*Start: 탐색 시작위치.
+		
+		*End: 탐색을 끝낼 위치.
+		
+		*Rot: 탐색에 사용할 도형의 회전.
+		
+		*TraceChannel: 물리 충돌 감지에 사용할 트레이스 채널 정보.
+		
+		*CollisionShape: 탐색에 사용할 기본 도형 정보.
+		
+		*Params: 탐색 방법에 대한 설정 값을 모아둔 구조체.
+		 
+		*ResponseParams: 탐색 반응을 설정하기 위한 구조체.
+		
+
+7. 		언리얼 실행 환경은 메모리에 떠있는 언리얼 오브젝트가 사용 중인지 아닌지를 주기적으로 검사하고, 사용하지 않는 물체를 발견하면 메모리에서 자동으로 제거한다.
+		
+		이를 가비지 컬렉션이라고 한다. 
+		
+		언리얼 오브젝트가 사용 중인지 여부는 다른 언리얼 오브젝트가 해당 오브젝트를 참조하는지로 판단하는데, FHitResult의 멤버 변수 Actor의 선언이 일반 참조로 선언 된다면 해당 함수에서의 참조로 인해 제거돼야 할 액터가 메모리에 그대로 남아있는 문제가 발생할 수 있다. 
+		
+		이런 문제를 방지하기 위해 FHitResult는 참조로부터 자유롭게 포인터 정보를 전달해주는 약 포인터(TWeakObjectPtr)방식으로 멤버 변수를 선헌했다. 
+		
+		약 포인터로 지정된 액터에 접근하려면 IsValid 함수(UE4)를 사용해 사용하려는 액터가 유효한지 먼저 점검하고 사용해야 한다.
+		
+8. 언리얼 엔진의 액터 클래스 AACtor는 TakeDamage라는 함수가 구현돼 있다.
+
+    TakeDamage 함수는 총 네 개의 인자를 갖고 있다.
+    		
+		* DamageAmount: 전달할 대미지 세기
+		* DamageEvent: 대미지 종류
+		* EventInstigator: 공격 명령을 내린 가해자 (컨트롤러의 정보를 주어야 함)
+		* DamageCauser: 대미지 전달을 위해 사용한 도구
