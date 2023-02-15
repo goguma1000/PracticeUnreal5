@@ -53,6 +53,12 @@
     <ClInclude Include="..\..\Source\MyActors\ABGameMode.h">
       <Filter>Source\MyActors</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\Source\MyActors\ABItemBox.cpp">
+      <Filter>Source\MyActors</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyActors\ABItemBox.h">
+      <Filter>Source\MyActors</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\MyActors\ABPawn.cpp">
       <Filter>Source\MyActors</Filter>
     </ClCompile>
@@ -63,6 +69,12 @@
       <Filter>Source\MyActors</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\MyActors\ABPlayerController.h">
+      <Filter>Source\MyActors</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MyActors\ABWeapon.cpp">
+      <Filter>Source\MyActors</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyActors\ABWeapon.h">
       <Filter>Source\MyActors</Filter>
     </ClInclude>
     <ClCompile Include="..\..\Source\MyActors\Fountain.cpp">

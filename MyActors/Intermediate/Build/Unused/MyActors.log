@@ -3,29 +3,21 @@
   Using 'git status' to determine working set for adaptive non-unity build (D:\Unreal Projects\prac).
   Building MyActorsEditor...
   Using Visual Studio 2019 14.29.30146 toolchain (C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133) and Windows 10.0.19041.0 SDK (C:\Program Files (x86)\Windows Kits\10).
-  [Adaptive Build] Excluded from MyActors unity file: ABAnimInstance.cpp, ABCharacter.cpp
+  [Adaptive Build] Excluded from MyActors unity file: ABCharacter.cpp, ABItemBox.cpp, ABWeapon.cpp
   Determining max actions to execute in parallel (6 physical cores, 6 logical cores)
     Executing up to 6 processes, one per physical core
-    Requested 1.5 GB free memory per action, 7.17 GB available: limiting max parallel actions to 4
-  Building 17 actions with 4 processes...
-  [1/17] Compile MyActors.init.gen.cpp
-  [2/17] Compile ABCharacter.gen.cpp
-  [3/17] Compile ABAnimInstance.gen.cpp
-  [4/17] Compile ABCharacter.cpp
-  [5/17] Compile Fountain.cpp
-  [6/17] Compile ABAnimInstance.cpp
-  [7/17] Compile ABPawn.cpp
-  [8/17] Compile ABGameMode.cpp
-  [9/17] Compile ABPlayerController.gen.cpp
-  [10/17] Compile Fountain.gen.cpp
-  [11/17] Compile ABGameMode.gen.cpp
-  [12/17] Compile ABPawn.gen.cpp
-  [13/17] Compile ABPlayerController.cpp
-  [14/17] Compile MyActors.cpp
-  [15/17] Link UnrealEditor-MyActors.lib
+    Requested 1.5 GB free memory per action, 7.01 GB available: limiting max parallel actions to 4
+  Building 9 actions with 4 processes...
+  [1/9] Compile MyActors.init.gen.cpp
+  [2/9] Compile ABItemBox.cpp
+  [3/9] Compile ABCharacter.gen.cpp
+  [4/9] Compile ABItemBox.gen.cpp
+  [5/9] Compile ABGameMode.cpp
+  [6/9] Compile ABCharacter.cpp
+  [7/9] Link UnrealEditor-MyActors.lib
      D:\Unreal Projects\prac\MyActors\Intermediate\Build\Win64\UnrealEditor\Development\MyActors\UnrealEditor-MyActors.lib 라이브러리 및 D:\Unreal Projects\prac\MyActors\Intermediate\Build\Win64\UnrealEditor\Development\MyActors\UnrealEditor-MyActors.exp 개체를 생성하고 있습니다.
-  [16/17] Link UnrealEditor-MyActors.dll
+  [8/9] Link UnrealEditor-MyActors.dll
      D:\Unreal Projects\prac\MyActors\Intermediate\Build\Win64\UnrealEditor\Development\MyActors\UnrealEditor-MyActors.suppressed.lib 라이브러리 및 D:\Unreal Projects\prac\MyActors\Intermediate\Build\Win64\UnrealEditor\Development\MyActors\UnrealEditor-MyActors.suppressed.exp 개체를 생성하고 있습니다.
-  [17/17] WriteMetadata MyActorsEditor.target
-  Total time in Parallel executor: 219.57 seconds
-  Total execution time: 220.56 seconds
+  [9/9] WriteMetadata MyActorsEditor.target
+  Total time in Parallel executor: 149.12 seconds
+  Total execution time: 150.28 seconds
