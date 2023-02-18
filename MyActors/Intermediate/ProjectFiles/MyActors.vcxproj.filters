@@ -47,6 +47,24 @@
     <ClInclude Include="..\..\Source\MyActors\ABCharacter.h">
       <Filter>Source\MyActors</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\Source\MyActors\ABCharacterStatComponent.cpp">
+      <Filter>Source\MyActors</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyActors\ABCharacterStatComponent.h">
+      <Filter>Source\MyActors</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MyActors\ABCharacterWidget.cpp">
+      <Filter>Source\MyActors</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyActors\ABCharacterWidget.h">
+      <Filter>Source\MyActors</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MyActors\ABGameInstance.cpp">
+      <Filter>Source\MyActors</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyActors\ABGameInstance.h">
+      <Filter>Source\MyActors</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\MyActors\ABGameMode.cpp">
       <Filter>Source\MyActors</Filter>
     </ClCompile>
