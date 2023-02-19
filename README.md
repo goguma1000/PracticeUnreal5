@@ -1119,7 +1119,7 @@ FName UABAnimInstance::GetAttackMontageSectionName(int32 Section) {
 학습내용: 교재 chapter9 실습
 <br>
 
-### AABCharacter.h
+### ABCharacter.h
 ~~~cpp
 ...
 public:	
@@ -1143,7 +1143,7 @@ private:
 
 ~~~
 
-### AABCharacter.h
+### ABCharacter.h
 ~~~cpp
 // Fill out your copyright notice in the Description page of Project Settings.
 
@@ -1310,3 +1310,628 @@ float AABCharacter::TakeDamage(float DamageAmount, FDamageEvent const& FDamageEv
 		* DamageEvent: 대미지 종류
 		* EventInstigator: 공격 명령을 내린 가해자 (컨트롤러의 정보를 주어야 함)
 		* DamageCauser: 대미지 전달을 위해 사용한 도구
+
+### 2023\-02\-16
+학습내용: 교재 chapter10 실습
+<br>
+
+### ABCharacter.h
+~~~cpp
+
+...
+
+public:	
+	
+	...
+	
+	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser)override;
+	
+	...
+	
+	bool CanSetWeapon();
+	void SetWeapon(class AABWeapon* NewWeapon);
+
+	UPROPERTY(VisibleAnywhere, Category = Weapon)
+	class AABWeapon* CurrentWeapon;
+
+...
+~~~
+
+### ABCharacter.cpp
+~~~cpp
+// Fill out your copyright notice in the Description page of Project Settings.
+
+
+#include "ABCharacter.h"
+#include "ABAnimInstance.h"
+#include "DrawDebugHelpers.h"
+#include "ABWeapon.h"
+
+bool AABCharacter::CanSetWeapon() {
+	return (nullptr == CurrentWeapon);
+}
+
+void AABCharacter::SetWeapon(AABWeapon* NewWeapon) {
+	ABCHECK(nullptr != NewWeapon && nullptr == CurrentWeapon);
+	FName WeaponSocket(TEXT("hand_rSocket"));
+	if (nullptr != NewWeapon) {
+		NewWeapon->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale, WeaponSocket);
+		NewWeapon->SetOwner(this);
+		CurrentWeapon = NewWeapon;
+	}
+}
+~~~
+
+### ABWeapon.h
+~~~cpp
+
+#include "MyActors.h"
+#include "GameFramework/Actor.h"
+#include "ABWeapon.generated.h"
+
+...
+
+public:
+	UPROPERTY(VisibleAnywhere, Category = Weapon)
+	USkeletalMeshComponent* Weapon;
+};
+
+~~~
+
+### ABWeapon.h
+~~~cpp
+
+#include "ABWeapon.h"
+
+AABWeapon::AABWeapon()
+{
+ 	
+	PrimaryActorTick.bCanEverTick = false;
+
+	Weapon = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("WEAPON"));
+	RootComponent = Weapon;
+
+	static ConstructorHelpers::FObjectFinder<USkeletalMesh> SK_WEAPON(TEXT("/Game/InfinityBladeWeapons/Weapons/Blade/Swords/Blade_BlackKnight/SK_Blade_BlackKnight.SK_Blade_BlackKnight"));
+	if (SK_WEAPON.Succeeded()) {
+		Weapon->SetSkeletalMesh(SK_WEAPON.Object);
+	}
+
+	Weapon->SetCollisionProfileName(TEXT("NoCollision"));
+
+}
+
+~~~
+
+### ABItemBox.h
+~~~cpp
+
+#pragma once
+
+#include "MyActors.h"
+#include "GameFramework/Actor.h"
+#include "ABItemBox.generated.h"
+
+UCLASS()
+class MYACTORS_API AABItemBox : public AActor
+{
+	GENERATED_BODY()
+	
+public:	
+	// Sets default values for this actor's properties
+	AABItemBox();
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+	virtual void PostInitializeComponents() override;
+
+public:	
+	UPROPERTY(VisibleAnywhere, Category = Box)
+	UBoxComponent* Trigger;
+
+	UPROPERTY(VisibleAnywhere, Category = Box)
+	UStaticMeshComponent* Box;
+
+	UPROPERTY(VisibleAnywhere, Category = Effect)
+	UParticleSystemComponent* Effect;
+
+	UPROPERTY(EditAnywhere, Category = Box)
+	TSubclassOf<class AABWeapon> WeaponItemClass;
+
+private:
+	UFUNCTION()
+	void OnCharacterOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+	
+	UFUNCTION()
+	void OnEffectFinished(class UParticleSystemComponent* PSystem);
+};
+
+~~~
+
+### ABItemBox.cpp
+~~~cpp
+// Fill out your copyright notice in the Description page of Project Settings.
+
+#include "ABItemBox.h"
+#include "ABWeapon.h"
+#include "ABCharacter.h"
+
+// Sets default values
+AABItemBox::AABItemBox()
+{
+ 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	PrimaryActorTick.bCanEverTick = false;
+
+	Trigger = CreateDefaultSubobject<UBoxComponent>(TEXT("TRIGGER"));
+	Box = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("BOX"));
+	Effect = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("EFFECT"));
+
+	RootComponent = Trigger;
+	Box->SetupAttachment(RootComponent);
+	Effect->SetupAttachment(RootComponent);
+
+	Trigger->SetBoxExtent(FVector(40.0f, 42.0f, 18.0f));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh>SM_BOX(TEXT("/Game/InfinityBladeGrassLands/Environments/Breakables/StaticMesh/Box/SM_Env_Breakables_Box1.SM_Env_Breakables_Box1"));
+	
+	if (SM_BOX.Succeeded()) {
+		Box->SetStaticMesh(SM_BOX.Object);
+	}
+
+	static ConstructorHelpers::FObjectFinder<UParticleSystem>P_CHESTOPEN(TEXT("/Game/InfinityBladeGrassLands/Effects/FX_Treasure/Chest/P_TreasureChest_Open_Mesh.P_TreasureChest_Open_Mesh"));
+	if (P_CHESTOPEN.Succeeded()) {
+		Effect->SetTemplate(P_CHESTOPEN.Object);
+		Effect->bAutoActivate = false;
+	}
+
+	Box->SetRelativeLocation(FVector(0.0f, -3.5f, -18.0f));
+
+	Trigger->SetCollisionProfileName(TEXT("ItemBox"));
+	Box->SetCollisionProfileName(TEXT("NoCollision"));
+
+	WeaponItemClass = AABWeapon::StaticClass();
+}
+
+void AABItemBox::PostInitializeComponents() {
+	Super::PostInitializeComponents();
+	Trigger->OnComponentBeginOverlap.AddDynamic(this, &AABItemBox::OnCharacterOverlap);
+
+}
+
+void AABItemBox::OnCharacterOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult) {
+	ABLOG_S(Warning);
+
+	auto ABCharacter = Cast<AABCharacter>(OtherActor);
+	ABCHECK(nullptr != ABCharacter);
+
+	if (nullptr != ABCharacter && nullptr != WeaponItemClass) {
+		if (ABCharacter->CanSetWeapon()) {
+			auto NewWeapon = GetWorld()->SpawnActor<AABWeapon>(WeaponItemClass, FVector::ZeroVector, FRotator::ZeroRotator);
+			ABCharacter->SetWeapon(NewWeapon);
+			Effect->Activate(true);
+			Box->SetHiddenInGame(true, true);
+			SetActorEnableCollision(false);
+			Effect->OnSystemFinished.AddDynamic(this, &AABItemBox::OnEffectFinished);
+		}
+		else {
+			ABLOG(Warning, TEXT("%s can't equip weapon currently."), *ABCharacter->GetName());
+		}
+	}
+}
+
+void AABItemBox::OnEffectFinished(UParticleSystemComponent* PSystem) {
+	Destroy();
+}
+~~~
+
+#### 학습내용 정리
+1. 캐릭터의 무기를 캐릭터의 트랜스폼에 배치하지 않고 Mesh에 배치해야 무기가 캐릭터의 애니메이션을 따라 움직인다.
+   
+   언리얼 엔진은 캐릭터에 무기나 액세서리를 부착하기위한 용도로 소켓이라는 시스템을 제공한다.
+  
+   코드로 무기를 장착할 때 스켈레탈 메시 컴포넌트에 무기를 로딩하고 SetupAttachment 함수에 소켓 이름을 인자로 넘겨주면 소켓 위치를 기준으로 트랜스폼이 자동으로 설정된다.
+   
+2. 박스 컴포넌트에는 Overlap 이벤트를 처리할 수 있게 OnComponentBeginOverlap이라는 이름의 델리게이트가 선언돼 있다.
+
+   다이나믹 델리게이트는 UFUNCTION 함수를 사용해야 하므로 람다식으로 표현한 함수는 바인딩할 수 없다.
+   
+3. 클래스 정보를 저장하는 변수를 선언할 때 UClass의 포인터를 사용할 수 있지만, 이를 사용하면 현재 프로젝트에 사용하는 모든 언리얼 오브젝트의 선언이 보이게 된다.
+
+   언리얼 엔진은 특정 클래스와 상속받은 클래스들로 목록을 한정하도록 TSubclassof라는 키워드를 제공한다.
+   
+
+### 2023\-02\-18
+학습내용: 교재 chapter11 실습
+<br>
+
+### ABGameInstance.h
+~~~cpp
+
+#pragma once
+
+#include "MyActors.h"
+#include "Engine/DataTable.h"
+#include "Engine/GameInstance.h"
+#include "ABGameInstance.generated.h"
+
+/**
+ * 
+ */
+
+USTRUCT(BlueprintType)
+struct FABCharacterData : public FTableRowBase {
+	GENERATED_BODY()
+
+public:
+	FABCharacterData() : Level(1), MaxHP(100.0f), Attack(10.0f), DropExp(10), NextExp(30){}
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Data")
+	int32 Level;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Data")
+	float MaxHP;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Data")
+	float Attack;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Data")
+	int32 DropExp;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Data")
+	int32 NextExp;
+
+};
+
+UCLASS()
+class MYACTORS_API UABGameInstance : public UGameInstance
+{
+	GENERATED_BODY()
+
+public:
+	UABGameInstance();
+
+	virtual void Init() override;
+	FABCharacterData* GetABCharacterData(int32 Level);
+
+private:
+	UPROPERTY()
+	class UDataTable* ABCharacterTable;
+};
+
+~~~
+
+### ABGameInstance.cpp
+~~~cpp
+
+#include "ABGameInstance.h"
+
+UABGameInstance::UABGameInstance() {
+	FString CharacterDataPath = TEXT("/Game/GameData/ABCharacterData.ABCharacterData");
+
+	static ConstructorHelpers::FObjectFinder<UDataTable>DT_ABCHARACTER(*CharacterDataPath);
+	ABCHECK(DT_ABCHARACTER.Succeeded());
+	ABCharacterTable = DT_ABCHARACTER.Object;
+	ABCHECK(ABCharacterTable->GetRowMap().Num() > 0);
+}
+
+void UABGameInstance::Init() {
+	Super::Init();
+	ABLOG(Warning, TEXT("DropExp of Level 20 ABCharacter : %d"), GetABCharacterData(20)->DropExp);
+
+}
+
+FABCharacterData* UABGameInstance::GetABCharacterData(int32 Level) {
+	return ABCharacterTable->FindRow<FABCharacterData>(*FString::FromInt(Level), TEXT(""));
+}
+
+~~~
+
+### ABCharacterStatComponent.h
+~~~cpp
+
+#pragma once
+
+#include "MyActors.h"
+#include "Components/ActorComponent.h"
+#include "ABCharacterStatComponent.generated.h"
+
+DECLARE_MULTICAST_DELEGATE(FOnHPIsZeroDelegate);
+DECLARE_MULTICAST_DELEGATE(FOnHPChangedDelegate);
+
+UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+class MYACTORS_API UABCharacterStatComponent : public UActorComponent
+{
+	GENERATED_BODY()
+
+public:	
+	// Sets default values for this component's properties
+	UABCharacterStatComponent();
+
+protected:
+	// Called when the game starts
+	virtual void BeginPlay() override;
+	virtual void InitializeComponent() override;
+
+public:
+	void SetNewLevel(int32 NewLevel);
+	void SetDamage(float NewDamage);
+	void SetHP(float NewHP);
+	float GetAttack();
+	float GetHPRatio();
+
+	FOnHPIsZeroDelegate OnHPIsZero;
+	FOnHPChangedDelegate OnHPChanged;
+private:
+	struct FABCharacterData* CurrentStatData = nullptr;
+
+	UPROPERTY(EditInstanceOnly, Category = Stat, Meta = (AllowPrivateAccess = true))
+	int32 Level;
+
+	UPROPERTY(Transient, VisibleInstanceOnly, Category = Stat, Meta = (AllowPrivateAccess = true))
+	float CurrentHP;
+
+};
+
+~~~
+
+### ABCharacterStatComponent.cpp
+~~~cpp
+
+#include "ABCharacterStatComponent.h"
+#include "ABGameInstance.h"
+
+// Sets default values for this component's properties
+UABCharacterStatComponent::UABCharacterStatComponent()
+{
+	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
+	// off to improve performance if you don't need them.
+	PrimaryComponentTick.bCanEverTick = false;
+	bWantsInitializeComponent = true;
+	
+	Level = 1;
+}
+
+void UABCharacterStatComponent::InitializeComponent() {
+	Super::InitializeComponent();
+	SetNewLevel(Level);
+}
+
+void UABCharacterStatComponent::SetNewLevel(int32 NewLevel) {
+	auto ABGameInstance = Cast<UABGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	ABCHECK(nullptr != ABGameInstance);
+	CurrentStatData = ABGameInstance->GetABCharacterData(NewLevel);
+	if (nullptr != CurrentStatData) {
+		Level = NewLevel;
+		SetHP(CurrentStatData->MaxHP);
+		
+	}
+	else {
+		ABLOG(Error, TEXT("Level (%d) data dosen't exist"), NewLevel);
+	}
+}
+
+void UABCharacterStatComponent::SetDamage(float NewDamage) {
+	ABCHECK(nullptr != CurrentStatData);
+	SetHP(FMath::Clamp<float>(CurrentHP - NewDamage, 0.0f, CurrentStatData->MaxHP));
+}
+
+float UABCharacterStatComponent::GetAttack() {
+	ABCHECK(nullptr != CurrentStatData, 0.0f);
+	return CurrentStatData->Attack;
+}
+
+void UABCharacterStatComponent::SetHP(float NewHP) {
+	CurrentHP = NewHP;
+	OnHPChanged.Broadcast();
+	if (CurrentHP < KINDA_SMALL_NUMBER) {
+		CurrentHP = 0.0f;
+		OnHPIsZero.Broadcast();
+	}
+}
+
+float UABCharacterStatComponent::GetHPRatio() {
+	ABCHECK(nullptr != CurrentStatData, 0.0f);
+
+	return(CurrentStatData->MaxHP < KINDA_SMALL_NUMBER) ? 0.0f : (CurrentHP / CurrentStatData->MaxHP);
+}
+
+~~~
+
+### ABCharacterWidget.h
+~~~cpp
+
+#pragma once
+
+#include "MyActors.h"
+#include "Blueprint/UserWidget.h"
+#include "ABCharacterWidget.generated.h"
+
+/**
+ * 
+ */
+UCLASS()
+class MYACTORS_API UABCharacterWidget : public UUserWidget
+{
+	GENERATED_BODY()
+	
+public:
+	void BindCharacterStat(class UABCharacterStatComponent* NewCharacterStat);
+
+protected:
+	virtual void NativeConstruct() override;
+	void UpdateHPWidget();
+
+private:
+	TWeakObjectPtr<class UABCharacterStatComponent> CurrentCharacterStat;
+
+	UPROPERTY()
+	class UProgressBar* HPProgressBar;
+};
+
+~~~
+
+### ABCharacterWidget.h
+~~~cpp
+
+#include "ABCharacterWidget.h"
+#include "ABCharacterStatComponent.h"
+#include "Components/ProgressBar.h"
+
+void UABCharacterWidget::BindCharacterStat(UABCharacterStatComponent* NewCharacterStat) {
+	ABCHECK(nullptr != NewCharacterStat);
+
+	CurrentCharacterStat = NewCharacterStat;
+	NewCharacterStat->OnHPChanged.AddUObject(this, &UABCharacterWidget::UpdateHPWidget);
+}
+
+void UABCharacterWidget::NativeConstruct() {
+	Super::NativeConstruct();
+	HPProgressBar = Cast<UProgressBar>(GetWidgetFromName(TEXT("PB_HPBar")));
+	ABCHECK(nullptr != HPProgressBar);
+	UpdateHPWidget();
+}
+
+void UABCharacterWidget::UpdateHPWidget() {
+	if (CurrentCharacterStat.IsValid()) {
+		if (nullptr != HPProgressBar) {
+			HPProgressBar->SetPercent(CurrentCharacterStat->GetHPRatio());
+		}
+	}
+}
+
+~~~
+
+### ABCharacterWidget.cpp
+~~~cpp
+
+#include "ABCharacterWidget.h"
+#include "ABCharacterStatComponent.h"
+#include "Components/ProgressBar.h"
+
+void UABCharacterWidget::BindCharacterStat(UABCharacterStatComponent* NewCharacterStat) {
+	ABCHECK(nullptr != NewCharacterStat);
+
+	CurrentCharacterStat = NewCharacterStat;
+	NewCharacterStat->OnHPChanged.AddUObject(this, &UABCharacterWidget::UpdateHPWidget);
+}
+
+void UABCharacterWidget::NativeConstruct() {
+	Super::NativeConstruct();
+	HPProgressBar = Cast<UProgressBar>(GetWidgetFromName(TEXT("PB_HPBar")));
+	ABCHECK(nullptr != HPProgressBar);
+	UpdateHPWidget();
+}
+
+void UABCharacterWidget::UpdateHPWidget() {
+	if (CurrentCharacterStat.IsValid()) {
+		if (nullptr != HPProgressBar) {
+			HPProgressBar->SetPercent(CurrentCharacterStat->GetHPRatio());
+		}
+	}
+}
+
+~~~
+
+### ABCharacter.h
+~~~cpp
+...
+public:	
+	...
+	
+	UPROPERTY(VisibleAnywhere, Category = Stat)
+	class UABCharacterStatComponent* CharacterStat;
+
+	UPROPERTY(VisibleAnywhere, Category = UI)
+	class UWidgetComponent* HPBarWidget;
+~~~
+...
+
+### ABCharacter.cpp
+~~~cpp
+
+#include "Components/WidgetComponent.h"
+#include "ABCharacterWidget.h"
+
+AABCharacter::AABCharacter()
+{
+ 	...
+	
+	CharacterStat = CreateDefaultSubobject<UABCharacterStatComponent>(TEXT("CHARACTERSTAT"));
+
+	HPBarWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("HPBARWIDGET"));
+	HPBarWidget->SetupAttachment(GetMesh());
+
+	HPBarWidget->SetRelativeLocation(FVector(0.0f, 0.0f, 180.0f));
+	HPBarWidget->SetWidgetSpace(EWidgetSpace::Screen);
+	static ConstructorHelpers::FClassFinder<UUserWidget>UI_HUD(TEXT("/Game/UI/UI_HPBar.UI_HPBar_C"));
+	if (UI_HUD.Succeeded()) {
+		HPBarWidget->SetWidgetClass(UI_HUD.Class);
+		HPBarWidget->SetDrawSize(FVector2D(150.0f, 50.0f));
+	}
+}
+
+void AABCharacter::PostInitializeComponents() {
+
+	...
+	
+	CharacterStat->OnHPIsZero.AddLambda([this]() -> void {
+		ABLOG(Warning, TEXT("OnHPIsZero"));
+		ABAnim->SetDeadAnim();
+		SetActorEnableCollision(false);
+	});
+
+	HPBarWidget->InitWidget();
+	auto CharacterWidget = Cast<UABCharacterWidget>(HPBarWidget->GetUserWidgetObject());
+	if (nullptr != CharacterWidget) {
+		CharacterWidget->BindCharacterStat(CharacterStat);
+	}
+
+}
+
+...
+
+float AABCharacter::TakeDamage(float DamageAmount, FDamageEvent const& FDamageEvent, AController* EventInstigator, AActor* DamageCauser) {
+	float FinalDamage = Super::TakeDamage(DamageAmount,FDamageEvent,EventInstigator,DamageCauser);
+	ABLOG(Warning, TEXT("Actor : %s took Damage : %f"), *GetName(), FinalDamage);
+	CharacterStat->SetDamage(FinalDamage);
+	return FinalDamage;
+}
+
+...
+~~~
+
+#### 학습내용 정리
+1. 게임 앱이 초기화 되면 언리얼 엔진은 GameInstance의 Init함수를 호출한다.
+   
+   게임을 시작하면 게임 앱을 초기화하고(UGameInstance::Init) 월드를 생성 후 월드에 레벨을 로딩해 스테이지를 생성하고 나면(AActor::PostInitializeComponents) 플레이어가 로그인해 준비를 마쳐야(AGameMode::PostLogin) 게임이 시작된다(AGameMode::StartPlay, AActor::BeginPlay).
+   
+2. 언리얼 엔진은 CSV파일에 행과 열로 구성된 테이블 데이터를 불러오는 기능을 제공한다.
+
+   CSV파일을 언리얼 엔진에서 불러들이기 위해 테이블 데이터의 각 열의 이름과 유형이 동일한 구조체를 선언해야 한다.
+   
+   언리얼 엔진에서 제공하는 FTableRowBase 구조체를 상속받아 새로운 구조체를 GameInstance 헤더에 선언한다.
+   
+   구조체를 생성할 때 언리얼이 지정한 규칙에 따라줘야 에디터 인터페이스에서 연동해 사용할 수 있다.
+   
+   USTRUCT 매크로를 구조체 선언 윗줄에 넣고 구조체 내부에는 GENERATED_BODY()매크로를 선언한다.
+   
+   구조체의 골격을 완성하면 CSV 파일의 각 열의 이름과 동일한 멤버 변수를 타입에 맞춰 선언한다.
+ 
+3. 액터 컴포넌트 클래스는 액터의 PostInitializeComponents에 대응하는 InitializeComponent 함수가 존재한다. 이 함수는 액터의 PostInitializeComponents 함수가 호출되기 바로 전에 호출된다.
+
+   InitializeComponent 함수가 호출되려면 생성자에서 bWantsInitializeComponent 값을 true로 설정해야 한다.
+   
+4. 언리얼 오브젝트에는 직렬화(Serialization)기능이 있어서 오브젝트의 UPROPERTY 속성을 저장하고 로딩할 수 있다. 하지만 UPROPERTY 매크로에 Transient 키워드를 추가하면 해당 속성을 직렬화에서 제외시킬 수 있다.  
+
+5. 언리얼 엔진은 엑터에 UI위젯을 부착할 수 있도록 UWidgetComponent라는 클래스를 제공한다.
+   
+   UWidgetComponent 클래스를 사용하려면 UI에 관련된 엔진 모듈을 지정해줘야 한다. 그렇지 않을 경우 컴파일이 되지 않는다.
+   
+   모듈의 Build,cs 파일에서 프로젝트에서 현재 사용하는 언리얼 엔진의 모듈을 확인할 수 있다.
+   
+   언리얼 에디터가 자동으로 생성하는 개발 환경에 의해 핵심적으로 사용하는 몇 개의 모듈만 개발 환경에 지정해 사용하고 있으며, 그 모듈은 Core, CoreUObject, Engine, InputCore이다.
+   
+   UWidgetComponent 클래스를 사용하기 위해 PublicDependencyModuleName.AddRange에 UMG를 추가해야 한다.
+   
+   모듈 설정을 완료하면 언리얼 빌드 툴에 의해 UMG모듈의 헤더파일 경로도 별도의 설정없이 바로 사용할 수 있도록 기본 경로로 설정된다.
+   
+6. UI 시스템이 준비되면 NativeConstructor 함수가 호출되는데, UI 생성은 플레이어 컨트롤러릐 BeginPlayer에서 호출되므로 BeginPlay 전에 호출된 PostInitializeComponents함수에서 발생한 명령은 UI에 반영되지 않는다.
