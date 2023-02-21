@@ -337,7 +337,11 @@
             "d:\\epic games\\ue_5.0\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\umg\\userwidget.generated.h",
             "d:\\unreal projects\\prac\\myactors\\intermediate\\build\\win64\\unrealeditor\\inc\\myactors\\abcharacterwidget.generated.h",
             "d:\\unreal projects\\prac\\myactors\\source\\myactors\\abcharacterstatcomponent.h",
-            "d:\\unreal projects\\prac\\myactors\\intermediate\\build\\win64\\unrealeditor\\inc\\myactors\\abcharacterstatcomponent.generated.h"
+            "d:\\unreal projects\\prac\\myactors\\intermediate\\build\\win64\\unrealeditor\\inc\\myactors\\abcharacterstatcomponent.generated.h",
+            "d:\\epic games\\ue_5.0\\engine\\source\\runtime\\umg\\public\\components\\progressbar.h",
+            "d:\\epic games\\ue_5.0\\engine\\source\\runtime\\slate\\public\\widgets\\notifications\\sprogressbar.h",
+            "d:\\epic games\\ue_5.0\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\slate\\sprogressbar.generated.h",
+            "d:\\epic games\\ue_5.0\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\umg\\progressbar.generated.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

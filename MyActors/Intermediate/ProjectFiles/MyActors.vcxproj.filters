@@ -35,6 +35,12 @@
     <Filter Include="Source\MyActors">
       <UniqueIdentifier>{FDE08288-2173-37BC-84C1-6FABE5DF66EA}</UniqueIdentifier>
     </Filter>
+    <ClCompile Include="..\..\Source\MyActors\ABAIController.cpp">
+      <Filter>Source\MyActors</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyActors\ABAIController.h">
+      <Filter>Source\MyActors</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\MyActors\ABAnimInstance.cpp">
       <Filter>Source\MyActors</Filter>
     </ClCompile>
@@ -93,6 +99,24 @@
       <Filter>Source\MyActors</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\MyActors\ABWeapon.h">
+      <Filter>Source\MyActors</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MyActors\BTDecorator_IsInAttackRange.cpp">
+      <Filter>Source\MyActors</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyActors\BTDecorator_IsInAttackRange.h">
+      <Filter>Source\MyActors</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MyActors\BTService_Detect.cpp">
+      <Filter>Source\MyActors</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyActors\BTService_Detect.h">
+      <Filter>Source\MyActors</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MyActors\BTTask_FindPatrolPos.cpp">
+      <Filter>Source\MyActors</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyActors\BTTask_FindPatrolPos.h">
       <Filter>Source\MyActors</Filter>
     </ClInclude>
     <ClCompile Include="..\..\Source\MyActors\Fountain.cpp">
