@@ -1935,3 +1935,9 @@ float AABCharacter::TakeDamage(float DamageAmount, FDamageEvent const& FDamageEv
    모듈 설정을 완료하면 언리얼 빌드 툴에 의해 UMG모듈의 헤더파일 경로도 별도의 설정없이 바로 사용할 수 있도록 기본 경로로 설정된다.
    
 6. UI 시스템이 준비되면 NativeConstructor 함수가 호출되는데, UI 생성은 플레이어 컨트롤러릐 BeginPlayer에서 호출되므로 BeginPlay 전에 호출된 PostInitializeComponents함수에서 발생한 명령은 UI에 반영되지 않는다.
+
+### 2023\-02\-21
+학습내용: 교재 chapter12 실습
+<br>
+
+AI BehaviorTree를 이용한 AI시스템 설계(플레이어 추적)
