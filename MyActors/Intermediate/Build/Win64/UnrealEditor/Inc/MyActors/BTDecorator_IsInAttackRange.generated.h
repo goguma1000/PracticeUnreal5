@@ -36,7 +36,7 @@ public: \
 
 #define FID_MyActors_Source_MyActors_BTDecorator_IsInAttackRange_h_15_STANDARD_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
-	NO_API UBTDecorator_IsInAttackRange(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
+	NO_API UBTDecorator_IsInAttackRange(const FObjectInitializer& ObjectInitializer); \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UBTDecorator_IsInAttackRange) \
 	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, UBTDecorator_IsInAttackRange); \
 	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UBTDecorator_IsInAttackRange); \
@@ -48,8 +48,6 @@ public:
 
 
 #define FID_MyActors_Source_MyActors_BTDecorator_IsInAttackRange_h_15_ENHANCED_CONSTRUCTORS \
-	/** Standard constructor, called after all reflected properties have been initialized */ \
-	NO_API UBTDecorator_IsInAttackRange(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()) : Super(ObjectInitializer) { }; \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	NO_API UBTDecorator_IsInAttackRange(UBTDecorator_IsInAttackRange&&); \
@@ -57,7 +55,7 @@ private: \
 public: \
 	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, UBTDecorator_IsInAttackRange); \
 	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UBTDecorator_IsInAttackRange); \
-	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UBTDecorator_IsInAttackRange)
+	DEFINE_DEFAULT_CONSTRUCTOR_CALL(UBTDecorator_IsInAttackRange)
 
 
 #define FID_MyActors_Source_MyActors_BTDecorator_IsInAttackRange_h_12_PROLOG

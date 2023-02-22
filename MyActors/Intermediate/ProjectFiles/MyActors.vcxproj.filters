@@ -113,10 +113,22 @@
     <ClInclude Include="..\..\Source\MyActors\BTService_Detect.h">
       <Filter>Source\MyActors</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\Source\MyActors\BTTask_Attack.cpp">
+      <Filter>Source\MyActors</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyActors\BTTask_Attack.h">
+      <Filter>Source\MyActors</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\MyActors\BTTask_FindPatrolPos.cpp">
       <Filter>Source\MyActors</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\MyActors\BTTask_FindPatrolPos.h">
+      <Filter>Source\MyActors</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MyActors\BTTask_TurnToTarget.cpp">
+      <Filter>Source\MyActors</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MyActors\BTTask_TurnToTarget.h">
       <Filter>Source\MyActors</Filter>
     </ClInclude>
     <ClCompile Include="..\..\Source\MyActors\Fountain.cpp">
