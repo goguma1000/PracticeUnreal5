@@ -1940,4 +1940,520 @@ float AABCharacter::TakeDamage(float DamageAmount, FDamageEvent const& FDamageEv
 학습내용: 교재 chapter12 실습
 <br>
 
-AI BehaviorTree를 이용한 AI시스템 설계(플레이어 추적)
+### ABAIController.h
+~~~cpp
+
+#pragma once
+
+#include "MyActors.h"
+#include "AIController.h"
+#include "ABAIController.generated.h"
+
+/**
+ * 
+ */
+UCLASS()
+class MYACTORS_API AABAIController : public AAIController
+{
+	GENERATED_BODY()
+	
+public:
+	AABAIController();
+	
+	virtual void OnPossess(APawn* InPawn) override;
+
+	static const FName HomePosKey;
+	static const FName PatrolPosKey;
+	static const FName TargetKey;
+
+private:
+	UPROPERTY()
+	class UBehaviorTree* BTAsset;
+
+	UPROPERTY()
+	class UBlackboardData* BBAsset;
+};
+
+~~~
+
+### ABAIController.cpp
+~~~cpp
+
+#include "ABAIController.h"
+#include "BehaviorTree/BehaviorTree.h"
+#include "BehaviorTree/BlackboardData.h"
+#include "BehaviorTree/BlackboardComponent.h"
+
+const FName AABAIController::HomePosKey(TEXT("HomePos"));
+const FName AABAIController::PatrolPosKey(TEXT("PatrolPos"));
+const FName AABAIController::TargetKey(TEXT("Target"));
+
+AABAIController::AABAIController() {
+	static ConstructorHelpers::FObjectFinder<UBlackboardData>BBObject(TEXT("/Game/AI/BB_ABCharacter.BB_ABCharacter"));
+	if (BBObject.Succeeded()) {
+		BBAsset = BBObject.Object;
+	}
+
+	static ConstructorHelpers::FObjectFinder<UBehaviorTree>BTObject(TEXT("/Game/AI/BT_ABCharacter.BT_ABCharacter"));
+	if (BTObject.Succeeded()) {
+		BTAsset = BTObject.Object;
+	}
+}
+
+void AABAIController::OnPossess(APawn* InPawn) {
+	Super::OnPossess(InPawn);
+	UBlackboardComponent* BlackboardComp = Blackboard.Get();
+	if (UseBlackboard(BBAsset, BlackboardComp)) {
+		BlackboardComp->SetValueAsVector(HomePosKey, InPawn->GetActorLocation());
+		if (!RunBehaviorTree(BTAsset)) {
+			ABLOG(Error, TEXT("AIController couldn't run behavior tree!"));
+		}
+	}
+}
+
+~~~
+
+### BTService_Detect.h
+~~~cpp
+
+#pragma once
+
+#include "MyActors.h"
+#include "BehaviorTree/BTService.h"
+#include "BTService_Detect.generated.h"
+
+/**
+ * 
+ */
+UCLASS()
+class MYACTORS_API UBTService_Detect : public UBTService
+{
+	GENERATED_BODY()
+	
+public:
+	UBTService_Detect();
+
+protected:
+	virtual void TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds) override;
+};
+
+~~~
+
+### BTService_Detect.cpp
+~~~cpp
+
+#include "BTService_Detect.h"
+#include "ABAIController.h"
+#include "ABCharacter.h"
+#include "BehaviorTree/BlackboardComponent.h"
+#include "DrawDebugHelpers.h"
+
+UBTService_Detect::UBTService_Detect() {
+	NodeName = TEXT("Detect");
+	Interval = 1.0f;
+}
+
+void UBTService_Detect::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds) {
+	Super::TickNode(OwnerComp, NodeMemory, DeltaSeconds);
+	
+	APawn* ControllingPawn = OwnerComp.GetAIOwner()->GetPawn();
+	if (nullptr == ControllingPawn) return;
+
+	UWorld* World = ControllingPawn->GetWorld();
+	FVector Center = ControllingPawn->GetActorLocation();
+	float DetectRadius = 600.0f;
+
+	if (nullptr == World) return;
+	TArray<FOverlapResult> OverlapResults;
+	FCollisionQueryParams CollisionQueryParam(NAME_None, false, ControllingPawn);
+	bool bResult = World->OverlapMultiByChannel(
+		OverlapResults,
+		Center,
+		FQuat::Identity,
+		ECollisionChannel::ECC_GameTraceChannel2,
+		FCollisionShape::MakeSphere(DetectRadius),
+		CollisionQueryParam
+	);
+
+	if (bResult) {
+		for (auto OverlapResult : OverlapResults) {
+			AABCharacter* ABCharacter = Cast<AABCharacter>(OverlapResult.GetActor());
+			if (ABCharacter && ABCharacter->GetController()->IsPlayerController()) {
+				OwnerComp.GetBlackboardComponent()->SetValueAsObject(AABAIController::TargetKey, ABCharacter);
+				DrawDebugSphere(World, Center, DetectRadius, 16, FColor::Green, false, 0.2f);
+				DrawDebugPoint(World, ABCharacter->GetActorLocation(), 10.0f, FColor::Blue, false, 0.2f);
+				DrawDebugLine(World, ControllingPawn->GetActorLocation(), ABCharacter->GetActorLocation(), FColor::Blue, false, 0.2f);
+				return;
+			}
+			else {
+				OwnerComp.GetBlackboardComponent()->SetValueAsObject(AABAIController::TargetKey, nullptr);
+			}
+		}
+	}
+
+	DrawDebugSphere(World, Center, DetectRadius, 16, FColor::Red, false, 0.2f);
+
+ }
+
+~~~
+
+### BTTask_Attack.h
+~~~cpp
+
+#pragma once
+
+#include "MyActors.h"
+#include "BehaviorTree/BTTaskNode.h"
+#include "BTTask_Attack.generated.h"
+
+/**
+ * 
+ */
+UCLASS()
+class MYACTORS_API UBTTask_Attack : public UBTTaskNode
+{
+	GENERATED_BODY()
+	
+public:
+	UBTTask_Attack();
+
+	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
+
+protected:
+	virtual void TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds) override;
+
+private:
+	bool IsAttacking = false;
+
+};
+
+~~~
+
+### BTTask_Attack.h
+~~~cpp
+
+#include "BTTask_Attack.h"
+#include "ABAIController.h"
+#include "ABCharacter.h"
+
+UBTTask_Attack::UBTTask_Attack() {
+	bNotifyTick = true;
+	IsAttacking = false;
+}
+
+EBTNodeResult::Type UBTTask_Attack::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) {
+	EBTNodeResult::Type Result = Super::ExecuteTask(OwnerComp, NodeMemory);
+
+	auto ABCharacter = Cast<AABCharacter>(OwnerComp.GetAIOwner()->GetPawn());
+	if (nullptr == ABCharacter) return EBTNodeResult::Failed;
+
+	ABCharacter->Attack();
+	IsAttacking = true;
+	ABCharacter->OnAttackEnd.AddLambda([this]() -> void {
+		IsAttacking = false;
+	});
+
+	return EBTNodeResult::InProgress;
+}
+
+void UBTTask_Attack::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds) {
+	Super::TickTask(OwnerComp, NodeMemory, DeltaSeconds);
+	if (!IsAttacking) {
+		FinishLatentTask(OwnerComp, EBTNodeResult::Succeeded);
+	}
+}
+
+~~~
+
+### BTTask_FindPatrolPos.h
+~~~cpp
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "BehaviorTree/BTTaskNode.h"
+#include "BTTask_FindPatrolPos.generated.h"
+
+/**
+ * 
+ */
+UCLASS()
+class MYACTORS_API UBTTask_FindPatrolPos : public UBTTaskNode
+{
+	GENERATED_BODY()
+	
+public:
+	UBTTask_FindPatrolPos();
+
+	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8 * NodeMemory) override;
+};
+
+~~~
+
+### BTTask_FindPatrolPos.cpp
+~~~cpp
+
+#include "BTTask_FindPatrolPos.h"
+#include "ABAIController.h"
+#include "BehaviorTree/BlackboardComponent.h"
+#include "NavigationSystem.h"
+
+UBTTask_FindPatrolPos::UBTTask_FindPatrolPos() {
+	NodeName = TEXT("FindPatrolPos");
+}
+
+EBTNodeResult::Type UBTTask_FindPatrolPos::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) {
+	EBTNodeResult::Type Result = Super::ExecuteTask(OwnerComp, NodeMemory);
+
+	auto ControllingPawn = OwnerComp.GetAIOwner()->GetPawn();
+	if (nullptr == ControllingPawn) return EBTNodeResult::Failed;
+
+	UNavigationSystemV1* NavSystem = UNavigationSystemV1::GetNavigationSystem(ControllingPawn->GetWorld());
+	if (nullptr == NavSystem) return EBTNodeResult::Failed;
+
+	FVector Origin = OwnerComp.GetBlackboardComponent()->GetValueAsVector(AABAIController::HomePosKey);
+	FNavLocation NextPatrol;
+	if (NavSystem->GetRandomPointInNavigableRadius(FVector::ZeroVector, 500.0f, NextPatrol)) {
+		OwnerComp.GetBlackboardComponent()->SetValueAsVector(AABAIController::PatrolPosKey, NextPatrol.Location);
+		return EBTNodeResult::Succeeded;
+	}
+
+	return EBTNodeResult::Failed;
+}
+
+~~~
+
+### BTTask_TurnToTarget.h
+~~~cpp
+
+#pragma once
+
+#include "MyActors.h"
+#include "BehaviorTree/BTTaskNode.h"
+#include "BTTask_TurnToTarget.generated.h"
+
+/**
+ * 
+ */
+UCLASS()
+class MYACTORS_API UBTTask_TurnToTarget : public UBTTaskNode
+{
+	GENERATED_BODY()
+	
+public:
+	UBTTask_TurnToTarget();
+	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
+
+};
+
+~~~
+
+### BTTask_TurnToTarget.cpp
+~~~cpp
+
+#include "BTTask_TurnToTarget.h"
+#include "ABAIController.h"
+#include "ABCharacter.h"
+#include "BehaviorTree/BlackboardComponent.h"
+
+UBTTask_TurnToTarget::UBTTask_TurnToTarget() {
+	NodeName = TEXT("Turn");
+}
+
+EBTNodeResult::Type UBTTask_TurnToTarget::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) {
+	EBTNodeResult::Type Result = Super::ExecuteTask(OwnerComp, NodeMemory);
+	auto ABCharacter = Cast<AABCharacter>(OwnerComp.GetAIOwner()->GetPawn());
+	if (nullptr == ABCharacter) return EBTNodeResult::Failed;
+
+	auto Target = Cast<AABCharacter>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(AABAIController::TargetKey));
+	if (nullptr == Target) return EBTNodeResult::Failed;
+
+	FVector LookVector = Target->GetActorLocation() - ABCharacter->GetActorLocation();
+	LookVector.Z = 0.0f;
+	FRotator TargetRot = FRotationMatrix::MakeFromX(LookVector).Rotator();
+	ABCharacter->SetActorRotation(FMath::RInterpTo(ABCharacter->GetActorRotation(), TargetRot, GetWorld()->GetDeltaSeconds(), 2.0f));
+
+	return EBTNodeResult::Succeeded;
+}
+
+~~~
+
+### BTDecorator_IsInAttackRange.h
+~~~cpp
+
+#pragma once
+
+#include "MyActors.h"
+#include "BehaviorTree/BTDecorator.h"
+#include "BTDecorator_IsInAttackRange.generated.h"
+
+/**
+ * 
+ */
+UCLASS()
+class MYACTORS_API UBTDecorator_IsInAttackRange : public UBTDecorator
+{
+	GENERATED_BODY()
+	
+public:
+	UBTDecorator_IsInAttackRange();
+
+protected:
+	virtual bool CalculateRawConditionValue(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) const override;
+};
+
+~~~
+
+### BTDecorator_IsInAttackRange.cpp
+~~~cpp
+
+#include "BTDecorator_IsInAttackRange.h"
+#include "ABAIController.h"
+#include "ABCharacter.h"
+#include "BehaviorTree/BlackboardComponent.h"
+
+UBTDecorator_IsInAttackRange::UBTDecorator_IsInAttackRange() {
+	NodeName = TEXT("CanAttack");
+}
+
+bool UBTDecorator_IsInAttackRange::CalculateRawConditionValue(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) const {
+	bool bResult = Super::CalculateRawConditionValue(OwnerComp,NodeMemory);
+
+	auto ControllingPawn = OwnerComp.GetAIOwner()->GetPawn();
+	if (nullptr == ControllingPawn) return false;
+
+	auto Target = Cast<AABCharacter>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(AABAIController::TargetKey));
+	if (nullptr == Target) return false;
+
+	bResult = (Target->GetDistanceTo(ControllingPawn) <= 200.0f);
+	return bResult;
+}
+
+~~~
+
+### ABCharacter.h
+~~~cpp
+
+protected:
+	
+	...
+
+	enum class EControlMode {
+
+		GTA,
+		DIABLO,
+		NPC
+	};
+	
+	...
+	
+public:	
+
+	...
+	
+	virtual void PossessedBy(AController* NewController)override;
+	
+	...
+	
+	void Attack();
+	FOnAttackEndDelegate OnAttackEnd;
+
+~~~
+
+### ABCharacter.cpp
+~~~cpp
+
+...
+
+#include "ABAIController.h"
+
+
+AABCharacter::AABCharacter()
+{
+ 	...
+	
+	AIControllerClass = AABAIController::StaticClass();
+	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
+}
+
+void AABCharacter::SetControlMode(EControlMode NewControlMode) {
+	
+	CurrentControlMode = NewControlMode;
+	switch (CurrentControlMode)
+	{
+	
+	...
+
+	case EControlMode::NPC:
+		bUseControllerRotationYaw = false;
+		GetCharacterMovement()->bUseControllerDesiredRotation = false;
+		GetCharacterMovement()->bOrientRotationToMovement = true;
+		GetCharacterMovement()->RotationRate = FRotator(0.0f, 480.0f, 0.0f);
+		break;
+	default:
+		break;
+	}
+	
+}
+
+void AABCharacter::PossessedBy(AController* NewController) {
+	Super::PossessedBy(NewController);
+	if (IsPlayerControlled()) {
+		SetControlMode(EControlMode::DIABLO);
+		GetCharacterMovement()->MaxWalkSpeed = 600.0f;
+	}
+	else {
+		SetControlMode(EControlMode::NPC);
+		GetCharacterMovement()->MaxWalkSpeed = 300.0f;
+	}
+}
+
+~~~
+
+#### 학습내용 정리
+1. 언리얼 엔진은 컴퓨터가 인공지능으로 NPC를 제어하도록 AI컨트롤러를 제공한다.
+   
+   내비게이션 메시를 레벨에 배치하여 NPC가 움직일 수 있는 영역을 정해준다.
+   
+   언리얼 엔진 4.20버전 부터 내비게이션 시스템 구조가 변경되어 NavigationSystem 모듈을 추가해야하고, NavigationSystem클래스가 NavigationSystemV1으로 변경됐다.
+   
+2. AI 컨트롤러에 특정 로직을 부여해 스스로 움직이는 NPC의 행동을 제작할 수 있지만, 좀더 복잡한 NPC 행동 패턴을 구현하려면 체계적인 모델에서 설계하는 것이 바람직하다.
+
+   언리얼 엔진은 비헤이비어 트리 모델과 이를 편집하는 에디터를 제공한다.
+   
+   비헤이비어 트리를 제작하기 위해서는 비헤이비어 트이롸 블랙보드 애셋을 생성해야 한다.
+   		
+		* 블랙보드: 블랙보드는 인공지능의 판단에 사용하는 데이터 집합을 의미. NPC의 의사 결정은 블랙보드에 있는 데이터 기반으로 진행.
+		
+		* 비헤이비어 트리: 블랙보드 데이터에 기반해 설계한 비헤이비어 트리의 정보를 저장한 애셋.
+    
+3. 비헤이비어 트리에서 태스크는 독립적으로 실행될 수 없고 반드시 Composite 노드를 거쳐 실행돼야 한다.
+   
+   Composite 노드는 대표적으로 Selector와 Sequence가 있다.
+   
+   비헤이비어 트리는 태스크를 실행할 때 태스크 클래스의 ExecuteTask라는 멤버 함수를 실행한다. ExecuteTask 함수는 다음의 셋 중 하나의 값을 반환해야 한다. 
+       
+       * Aborted: 태스크 실행 중에 중단됐다. 결과적으로 실패했다.
+       
+       * Failed: 태스크를 수행했지만 실패했다.
+       
+       * Succeeded: 태스크를 성공적으로 수행했다.
+       
+       * InProgress: 태스크를 계속 수행하고 있다.
+       
+   ExecuteTask의 결과 값을 InProgress로 반환하면 나중에 태스크가 끝났다고 알려줘야 한다. 이를 알려주는 함수가 FinishLatentTask 함수다.
+   
+   이 함수를 호출해주지 않으면 비헤이비어 트리 시스템은 현재 태스크에 계속 머물게 된다.
+   
+       
+4. 언리얼 엔진은 서비스 노드를 제공한다. 서비스 노드는 독립적으로 동작하지 않고 Composite 노드에 부착되는 노드다.
+
+   또한 서비스 노드는 해당 Composite에 속한 태스크들이 실행되는 동안 반복적인 작업을 실행하는 데 적합하다.
+   
+   서비스 노드는 자신이 속한 Composite 노드가 활성화 됭 경우 주기적으로 TickNode 함수를 호출한다.
+   
+5. 언리얼 엔진은 블랙보드의 값을 기반으로 특정 Coomposite 노드의 실행 여부를 결정하는 데코레이터 노드를 제공한다. 
+   
+   데코레이터 클래스는 CalculateRawConditionValue 함수를 상속받아 원하는 조건이 달성됐는지 파악하도록 설계됐다.
+   
+   이 함수는 const로 선언돼 데코레이터 클래스의 멤버 변수 값은 변경 불가능하다.
