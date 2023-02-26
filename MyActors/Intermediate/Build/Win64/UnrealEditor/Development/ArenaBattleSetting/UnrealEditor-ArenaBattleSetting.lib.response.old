@@ -1,0 +1,12 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UnrealEditor-ArenaBattleSetting.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"D:\Unreal Projects\prac\MyActors\Intermediate\Build\Win64\MyActorsEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h.obj"
+"D:\Unreal Projects\prac\MyActors\Intermediate\Build\Win64\UnrealEditor\Development\ArenaBattleSetting\ArenaBattleSetting.cpp.obj"
+"D:\Unreal Projects\prac\MyActors\Intermediate\Build\Win64\UnrealEditor\Development\ArenaBattleSetting\Default.rc2.res"
+/OUT:"D:\Unreal Projects\prac\MyActors\Intermediate\Build\Win64\UnrealEditor\Development\ArenaBattleSetting\UnrealEditor-ArenaBattleSetting.lib"

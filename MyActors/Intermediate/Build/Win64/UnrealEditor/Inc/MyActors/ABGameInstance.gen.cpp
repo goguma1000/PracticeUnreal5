@@ -5,7 +5,7 @@
 ===========================================================================*/
 
 #include "UObject/GeneratedCppIncludes.h"
-#include "MyActors/ABGameInstance.h"
+#include "MyActors/Public/ABGameInstance.h"
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeABGameInstance() {}
 // Cross Module References
@@ -66,7 +66,7 @@ template<> MYACTORS_API UScriptStruct* StaticStruct<FABCharacterData>()
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FABCharacterData_Statics::Struct_MetaDataParams[] = {
 		{ "BlueprintType", "true" },
 		{ "Comment", "/**\n * \n */" },
-		{ "ModuleRelativePath", "ABGameInstance.h" },
+		{ "ModuleRelativePath", "Public/ABGameInstance.h" },
 	};
 #endif
 	void* Z_Construct_UScriptStruct_FABCharacterData_Statics::NewStructOps()
@@ -76,35 +76,35 @@ template<> MYACTORS_API UScriptStruct* StaticStruct<FABCharacterData>()
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FABCharacterData_Statics::NewProp_Level_MetaData[] = {
 		{ "Category", "Data" },
-		{ "ModuleRelativePath", "ABGameInstance.h" },
+		{ "ModuleRelativePath", "Public/ABGameInstance.h" },
 	};
 #endif
 	const UECodeGen_Private::FIntPropertyParams Z_Construct_UScriptStruct_FABCharacterData_Statics::NewProp_Level = { "Level", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FABCharacterData, Level), METADATA_PARAMS(Z_Construct_UScriptStruct_FABCharacterData_Statics::NewProp_Level_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FABCharacterData_Statics::NewProp_Level_MetaData)) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FABCharacterData_Statics::NewProp_MaxHP_MetaData[] = {
 		{ "Category", "Data" },
-		{ "ModuleRelativePath", "ABGameInstance.h" },
+		{ "ModuleRelativePath", "Public/ABGameInstance.h" },
 	};
 #endif
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FABCharacterData_Statics::NewProp_MaxHP = { "MaxHP", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FABCharacterData, MaxHP), METADATA_PARAMS(Z_Construct_UScriptStruct_FABCharacterData_Statics::NewProp_MaxHP_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FABCharacterData_Statics::NewProp_MaxHP_MetaData)) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FABCharacterData_Statics::NewProp_Attack_MetaData[] = {
 		{ "Category", "Data" },
-		{ "ModuleRelativePath", "ABGameInstance.h" },
+		{ "ModuleRelativePath", "Public/ABGameInstance.h" },
 	};
 #endif
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FABCharacterData_Statics::NewProp_Attack = { "Attack", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FABCharacterData, Attack), METADATA_PARAMS(Z_Construct_UScriptStruct_FABCharacterData_Statics::NewProp_Attack_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FABCharacterData_Statics::NewProp_Attack_MetaData)) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FABCharacterData_Statics::NewProp_DropExp_MetaData[] = {
 		{ "Category", "Data" },
-		{ "ModuleRelativePath", "ABGameInstance.h" },
+		{ "ModuleRelativePath", "Public/ABGameInstance.h" },
 	};
 #endif
 	const UECodeGen_Private::FIntPropertyParams Z_Construct_UScriptStruct_FABCharacterData_Statics::NewProp_DropExp = { "DropExp", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FABCharacterData, DropExp), METADATA_PARAMS(Z_Construct_UScriptStruct_FABCharacterData_Statics::NewProp_DropExp_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FABCharacterData_Statics::NewProp_DropExp_MetaData)) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FABCharacterData_Statics::NewProp_NextExp_MetaData[] = {
 		{ "Category", "Data" },
-		{ "ModuleRelativePath", "ABGameInstance.h" },
+		{ "ModuleRelativePath", "Public/ABGameInstance.h" },
 	};
 #endif
 	const UECodeGen_Private::FIntPropertyParams Z_Construct_UScriptStruct_FABCharacterData_Statics::NewProp_NextExp = { "NextExp", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(FABCharacterData, NextExp), METADATA_PARAMS(Z_Construct_UScriptStruct_FABCharacterData_Statics::NewProp_NextExp_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FABCharacterData_Statics::NewProp_NextExp_MetaData)) };
@@ -165,12 +165,12 @@ template<> MYACTORS_API UScriptStruct* StaticStruct<FABCharacterData>()
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UABGameInstance_Statics::Class_MetaDataParams[] = {
 		{ "IncludePath", "ABGameInstance.h" },
-		{ "ModuleRelativePath", "ABGameInstance.h" },
+		{ "ModuleRelativePath", "Public/ABGameInstance.h" },
 	};
 #endif
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UABGameInstance_Statics::NewProp_ABCharacterTable_MetaData[] = {
-		{ "ModuleRelativePath", "ABGameInstance.h" },
+		{ "ModuleRelativePath", "Public/ABGameInstance.h" },
 	};
 #endif
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UABGameInstance_Statics::NewProp_ABCharacterTable = { "ABCharacterTable", nullptr, (EPropertyFlags)0x0040000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UABGameInstance, ABCharacterTable), Z_Construct_UClass_UDataTable_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UABGameInstance_Statics::NewProp_ABCharacterTable_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UABGameInstance_Statics::NewProp_ABCharacterTable_MetaData)) };
@@ -208,19 +208,19 @@ template<> MYACTORS_API UScriptStruct* StaticStruct<FABCharacterData>()
 		return UABGameInstance::StaticClass();
 	}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UABGameInstance);
-	struct Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_ABGameInstance_h_Statics
+	struct Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_Public_ABGameInstance_h_Statics
 	{
 		static const FStructRegisterCompiledInInfo ScriptStructInfo[];
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
-	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_ABGameInstance_h_Statics::ScriptStructInfo[] = {
-		{ FABCharacterData::StaticStruct, Z_Construct_UScriptStruct_FABCharacterData_Statics::NewStructOps, TEXT("ABCharacterData"), &Z_Registration_Info_UScriptStruct_ABCharacterData, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FABCharacterData), 4239844373U) },
+	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_Public_ABGameInstance_h_Statics::ScriptStructInfo[] = {
+		{ FABCharacterData::StaticStruct, Z_Construct_UScriptStruct_FABCharacterData_Statics::NewStructOps, TEXT("ABCharacterData"), &Z_Registration_Info_UScriptStruct_ABCharacterData, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FABCharacterData), 1380293921U) },
 	};
-	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_ABGameInstance_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UABGameInstance, UABGameInstance::StaticClass, TEXT("UABGameInstance"), &Z_Registration_Info_UClass_UABGameInstance, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UABGameInstance), 2723504554U) },
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_Public_ABGameInstance_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_UABGameInstance, UABGameInstance::StaticClass, TEXT("UABGameInstance"), &Z_Registration_Info_UClass_UABGameInstance, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UABGameInstance), 3880641137U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_ABGameInstance_h_353117591(TEXT("/Script/MyActors"),
-		Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_ABGameInstance_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_ABGameInstance_h_Statics::ClassInfo),
-		Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_ABGameInstance_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_ABGameInstance_h_Statics::ScriptStructInfo),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_Public_ABGameInstance_h_1956407588(TEXT("/Script/MyActors"),
+		Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_Public_ABGameInstance_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_Public_ABGameInstance_h_Statics::ClassInfo),
+		Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_Public_ABGameInstance_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_Public_ABGameInstance_h_Statics::ScriptStructInfo),
 		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

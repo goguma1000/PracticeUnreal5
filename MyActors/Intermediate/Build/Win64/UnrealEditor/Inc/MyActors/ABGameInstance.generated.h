@@ -13,7 +13,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define MYACTORS_ABGameInstance_generated_h
 
-#define FID_MyActors_Source_MyActors_ABGameInstance_h_16_GENERATED_BODY \
+#define FID_MyActors_Source_MyActors_Public_ABGameInstance_h_18_GENERATED_BODY \
 	friend struct Z_Construct_UScriptStruct_FABCharacterData_Statics; \
 	MYACTORS_API static class UScriptStruct* StaticStruct(); \
 	typedef FTableRowBase Super;
@@ -21,10 +21,10 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 
 template<> MYACTORS_API UScriptStruct* StaticStruct<struct FABCharacterData>();
 
-#define FID_MyActors_Source_MyActors_ABGameInstance_h_41_SPARSE_DATA
-#define FID_MyActors_Source_MyActors_ABGameInstance_h_41_RPC_WRAPPERS
-#define FID_MyActors_Source_MyActors_ABGameInstance_h_41_RPC_WRAPPERS_NO_PURE_DECLS
-#define FID_MyActors_Source_MyActors_ABGameInstance_h_41_INCLASS_NO_PURE_DECLS \
+#define FID_MyActors_Source_MyActors_Public_ABGameInstance_h_43_SPARSE_DATA
+#define FID_MyActors_Source_MyActors_Public_ABGameInstance_h_43_RPC_WRAPPERS
+#define FID_MyActors_Source_MyActors_Public_ABGameInstance_h_43_RPC_WRAPPERS_NO_PURE_DECLS
+#define FID_MyActors_Source_MyActors_Public_ABGameInstance_h_43_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUABGameInstance(); \
 	friend struct Z_Construct_UClass_UABGameInstance_Statics; \
@@ -33,7 +33,7 @@ public: \
 	DECLARE_SERIALIZER(UABGameInstance)
 
 
-#define FID_MyActors_Source_MyActors_ABGameInstance_h_41_INCLASS \
+#define FID_MyActors_Source_MyActors_Public_ABGameInstance_h_43_INCLASS \
 private: \
 	static void StaticRegisterNativesUABGameInstance(); \
 	friend struct Z_Construct_UClass_UABGameInstance_Statics; \
@@ -42,7 +42,7 @@ public: \
 	DECLARE_SERIALIZER(UABGameInstance)
 
 
-#define FID_MyActors_Source_MyActors_ABGameInstance_h_41_STANDARD_CONSTRUCTORS \
+#define FID_MyActors_Source_MyActors_Public_ABGameInstance_h_43_STANDARD_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API UABGameInstance(const FObjectInitializer& ObjectInitializer); \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UABGameInstance) \
@@ -55,7 +55,7 @@ private: \
 public:
 
 
-#define FID_MyActors_Source_MyActors_ABGameInstance_h_41_ENHANCED_CONSTRUCTORS \
+#define FID_MyActors_Source_MyActors_Public_ABGameInstance_h_43_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	NO_API UABGameInstance(UABGameInstance&&); \
@@ -66,25 +66,25 @@ public: \
 	DEFINE_DEFAULT_CONSTRUCTOR_CALL(UABGameInstance)
 
 
-#define FID_MyActors_Source_MyActors_ABGameInstance_h_38_PROLOG
-#define FID_MyActors_Source_MyActors_ABGameInstance_h_41_GENERATED_BODY_LEGACY \
+#define FID_MyActors_Source_MyActors_Public_ABGameInstance_h_40_PROLOG
+#define FID_MyActors_Source_MyActors_Public_ABGameInstance_h_43_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_MyActors_Source_MyActors_ABGameInstance_h_41_SPARSE_DATA \
-	FID_MyActors_Source_MyActors_ABGameInstance_h_41_RPC_WRAPPERS \
-	FID_MyActors_Source_MyActors_ABGameInstance_h_41_INCLASS \
-	FID_MyActors_Source_MyActors_ABGameInstance_h_41_STANDARD_CONSTRUCTORS \
+	FID_MyActors_Source_MyActors_Public_ABGameInstance_h_43_SPARSE_DATA \
+	FID_MyActors_Source_MyActors_Public_ABGameInstance_h_43_RPC_WRAPPERS \
+	FID_MyActors_Source_MyActors_Public_ABGameInstance_h_43_INCLASS \
+	FID_MyActors_Source_MyActors_Public_ABGameInstance_h_43_STANDARD_CONSTRUCTORS \
 public: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define FID_MyActors_Source_MyActors_ABGameInstance_h_41_GENERATED_BODY \
+#define FID_MyActors_Source_MyActors_Public_ABGameInstance_h_43_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_MyActors_Source_MyActors_ABGameInstance_h_41_SPARSE_DATA \
-	FID_MyActors_Source_MyActors_ABGameInstance_h_41_RPC_WRAPPERS_NO_PURE_DECLS \
-	FID_MyActors_Source_MyActors_ABGameInstance_h_41_INCLASS_NO_PURE_DECLS \
-	FID_MyActors_Source_MyActors_ABGameInstance_h_41_ENHANCED_CONSTRUCTORS \
+	FID_MyActors_Source_MyActors_Public_ABGameInstance_h_43_SPARSE_DATA \
+	FID_MyActors_Source_MyActors_Public_ABGameInstance_h_43_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_MyActors_Source_MyActors_Public_ABGameInstance_h_43_INCLASS_NO_PURE_DECLS \
+	FID_MyActors_Source_MyActors_Public_ABGameInstance_h_43_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -92,7 +92,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 template<> MYACTORS_API UClass* StaticClass<class UABGameInstance>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID FID_MyActors_Source_MyActors_ABGameInstance_h
+#define CURRENT_FILE_ID FID_MyActors_Source_MyActors_Public_ABGameInstance_h
 
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

@@ -1,13 +1,13 @@
 {
     "Version": "1.1",
     "Data": {
-        "Source": "d:\\unreal projects\\prac\\myactors\\source\\myactors\\abcharacterwidget.cpp",
+        "Source": "d:\\unreal projects\\prac\\myactors\\source\\myactors\\private\\abcharacterwidget.cpp",
         "ProvidedModule": "",
         "PCH": "d:\\unreal projects\\prac\\myactors\\intermediate\\build\\win64\\myactorseditor\\development\\engine\\sharedpch.engine.shadowerrors.h.pch",
         "Includes": [
             "d:\\unreal projects\\prac\\myactors\\intermediate\\build\\win64\\unrealeditor\\development\\myactors\\definitions.myactors.h",
-            "d:\\unreal projects\\prac\\myactors\\source\\myactors\\abcharacterwidget.h",
-            "d:\\unreal projects\\prac\\myactors\\source\\myactors\\myactors.h",
+            "d:\\unreal projects\\prac\\myactors\\source\\myactors\\public\\abcharacterwidget.h",
+            "d:\\unreal projects\\prac\\myactors\\source\\myactors\\public\\myactors.h",
             "d:\\epic games\\ue_5.0\\engine\\source\\runtime\\engine\\public\\engineminimal.h",
             "d:\\epic games\\ue_5.0\\engine\\source\\runtime\\core\\public\\misc\\monolithicheaderboilerplate.h",
             "d:\\epic games\\ue_5.0\\engine\\source\\runtime\\coreuobject\\public\\coreuobject.h",
@@ -336,7 +336,7 @@
             "d:\\epic games\\ue_5.0\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\umg\\widgetblueprintgeneratedclass.generated.h",
             "d:\\epic games\\ue_5.0\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\umg\\userwidget.generated.h",
             "d:\\unreal projects\\prac\\myactors\\intermediate\\build\\win64\\unrealeditor\\inc\\myactors\\abcharacterwidget.generated.h",
-            "d:\\unreal projects\\prac\\myactors\\source\\myactors\\abcharacterstatcomponent.h",
+            "d:\\unreal projects\\prac\\myactors\\source\\myactors\\public\\abcharacterstatcomponent.h",
             "d:\\unreal projects\\prac\\myactors\\intermediate\\build\\win64\\unrealeditor\\inc\\myactors\\abcharacterstatcomponent.generated.h",
             "d:\\epic games\\ue_5.0\\engine\\source\\runtime\\umg\\public\\components\\progressbar.h",
             "d:\\epic games\\ue_5.0\\engine\\source\\runtime\\slate\\public\\widgets\\notifications\\sprogressbar.h",

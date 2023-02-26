@@ -5,7 +5,7 @@
 ===========================================================================*/
 
 #include "UObject/GeneratedCppIncludes.h"
-#include "MyActors/BTDecorator_IsInAttackRange.h"
+#include "MyActors/Public/BTDecorator_IsInAttackRange.h"
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeBTDecorator_IsInAttackRange() {}
 // Cross Module References
@@ -39,7 +39,7 @@ void EmptyLinkFunctionForGeneratedCodeBTDecorator_IsInAttackRange() {}
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UBTDecorator_IsInAttackRange_Statics::Class_MetaDataParams[] = {
 		{ "Comment", "/**\n * \n */" },
 		{ "IncludePath", "BTDecorator_IsInAttackRange.h" },
-		{ "ModuleRelativePath", "BTDecorator_IsInAttackRange.h" },
+		{ "ModuleRelativePath", "Public/BTDecorator_IsInAttackRange.h" },
 	};
 #endif
 	const FCppClassTypeInfoStatic Z_Construct_UClass_UBTDecorator_IsInAttackRange_Statics::StaticCppClassTypeInfo = {
@@ -73,15 +73,15 @@ void EmptyLinkFunctionForGeneratedCodeBTDecorator_IsInAttackRange() {}
 		return UBTDecorator_IsInAttackRange::StaticClass();
 	}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UBTDecorator_IsInAttackRange);
-	struct Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_BTDecorator_IsInAttackRange_h_Statics
+	struct Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_Public_BTDecorator_IsInAttackRange_h_Statics
 	{
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
-	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_BTDecorator_IsInAttackRange_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UBTDecorator_IsInAttackRange, UBTDecorator_IsInAttackRange::StaticClass, TEXT("UBTDecorator_IsInAttackRange"), &Z_Registration_Info_UClass_UBTDecorator_IsInAttackRange, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBTDecorator_IsInAttackRange), 2984465352U) },
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_Public_BTDecorator_IsInAttackRange_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_UBTDecorator_IsInAttackRange, UBTDecorator_IsInAttackRange::StaticClass, TEXT("UBTDecorator_IsInAttackRange"), &Z_Registration_Info_UClass_UBTDecorator_IsInAttackRange, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBTDecorator_IsInAttackRange), 3833205953U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_BTDecorator_IsInAttackRange_h_2091341301(TEXT("/Script/MyActors"),
-		Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_BTDecorator_IsInAttackRange_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_BTDecorator_IsInAttackRange_h_Statics::ClassInfo),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_Public_BTDecorator_IsInAttackRange_h_1750953637(TEXT("/Script/MyActors"),
+		Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_Public_BTDecorator_IsInAttackRange_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_Public_BTDecorator_IsInAttackRange_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

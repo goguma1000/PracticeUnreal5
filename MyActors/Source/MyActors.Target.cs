@@ -10,6 +10,6 @@ public class MyActorsTarget : TargetRules
 		Type = TargetType.Game;
 		DefaultBuildSettings = BuildSettingsVersion.V2;
 
-		ExtraModuleNames.AddRange( new string[] { "MyActors" } );
+		ExtraModuleNames.AddRange( new string[] { "MyActors" , "ArenaBattleSetting"} );
 	}
 }

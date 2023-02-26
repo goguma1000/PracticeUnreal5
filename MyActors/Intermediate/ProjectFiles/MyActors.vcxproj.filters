@@ -14,6 +14,9 @@
     <Filter Include="Config">
       <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
     </Filter>
+    <None Include="..\..\Config\DefaultArenaBattle.ini">
+      <Filter>Config</Filter>
+    </None>
     <None Include="..\..\Config\DefaultEditor.ini">
       <Filter>Config</Filter>
     </None>
@@ -32,125 +35,161 @@
     <None Include="..\..\Config\HoloLens\HoloLensEngine.ini">
       <Filter>Config\HoloLens</Filter>
     </None>
+    <Filter Include="Source\ArenaBattleSetting">
+      <UniqueIdentifier>{4158360F-7568-3C26-8BE4-B72466AADF15}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\ArenaBattleSetting\ArenaBattleSetting.Build.cs">
+      <Filter>Source\ArenaBattleSetting</Filter>
+    </None>
+    <Filter Include="Source\ArenaBattleSetting\Private">
+      <UniqueIdentifier>{E3EF79B4-5EE2-38AA-8B51-97006D31EC8F}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\ArenaBattleSetting\Private\ABCharacterSetting.cpp">
+      <Filter>Source\ArenaBattleSetting\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\ArenaBattleSetting\Private\ArenaBattleSetting.cpp">
+      <Filter>Source\ArenaBattleSetting\Private</Filter>
+    </ClCompile>
+    <Filter Include="Source\ArenaBattleSetting\Public">
+      <UniqueIdentifier>{C6A3B8C1-707F-337C-A52E-F90EC1AC64EB}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\ArenaBattleSetting\Public\ABCharacterSetting.h">
+      <Filter>Source\ArenaBattleSetting\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\ArenaBattleSetting\Public\ArenaBattleSetting.h">
+      <Filter>Source\ArenaBattleSetting\Public</Filter>
+    </ClInclude>
     <Filter Include="Source\MyActors">
       <UniqueIdentifier>{FDE08288-2173-37BC-84C1-6FABE5DF66EA}</UniqueIdentifier>
     </Filter>
-    <ClCompile Include="..\..\Source\MyActors\ABAIController.cpp">
-      <Filter>Source\MyActors</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\MyActors\ABAIController.h">
-      <Filter>Source\MyActors</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\MyActors\ABAnimInstance.cpp">
-      <Filter>Source\MyActors</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\MyActors\ABAnimInstance.h">
-      <Filter>Source\MyActors</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\MyActors\ABCharacter.cpp">
-      <Filter>Source\MyActors</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\MyActors\ABCharacter.h">
-      <Filter>Source\MyActors</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\MyActors\ABCharacterStatComponent.cpp">
-      <Filter>Source\MyActors</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\MyActors\ABCharacterStatComponent.h">
-      <Filter>Source\MyActors</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\MyActors\ABCharacterWidget.cpp">
-      <Filter>Source\MyActors</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\MyActors\ABCharacterWidget.h">
-      <Filter>Source\MyActors</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\MyActors\ABGameInstance.cpp">
-      <Filter>Source\MyActors</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\MyActors\ABGameInstance.h">
-      <Filter>Source\MyActors</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\MyActors\ABGameMode.cpp">
-      <Filter>Source\MyActors</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\MyActors\ABGameMode.h">
-      <Filter>Source\MyActors</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\MyActors\ABItemBox.cpp">
-      <Filter>Source\MyActors</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\MyActors\ABItemBox.h">
-      <Filter>Source\MyActors</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\MyActors\ABPawn.cpp">
-      <Filter>Source\MyActors</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\MyActors\ABPawn.h">
-      <Filter>Source\MyActors</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\MyActors\ABPlayerController.cpp">
-      <Filter>Source\MyActors</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\MyActors\ABPlayerController.h">
-      <Filter>Source\MyActors</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\MyActors\ABWeapon.cpp">
-      <Filter>Source\MyActors</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\MyActors\ABWeapon.h">
-      <Filter>Source\MyActors</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\MyActors\BTDecorator_IsInAttackRange.cpp">
-      <Filter>Source\MyActors</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\MyActors\BTDecorator_IsInAttackRange.h">
-      <Filter>Source\MyActors</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\MyActors\BTService_Detect.cpp">
-      <Filter>Source\MyActors</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\MyActors\BTService_Detect.h">
-      <Filter>Source\MyActors</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\MyActors\BTTask_Attack.cpp">
-      <Filter>Source\MyActors</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\MyActors\BTTask_Attack.h">
-      <Filter>Source\MyActors</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\MyActors\BTTask_FindPatrolPos.cpp">
-      <Filter>Source\MyActors</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\MyActors\BTTask_FindPatrolPos.h">
-      <Filter>Source\MyActors</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\MyActors\BTTask_TurnToTarget.cpp">
-      <Filter>Source\MyActors</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\MyActors\BTTask_TurnToTarget.h">
-      <Filter>Source\MyActors</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\MyActors\Fountain.cpp">
-      <Filter>Source\MyActors</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\MyActors\Fountain.h">
-      <Filter>Source\MyActors</Filter>
-    </ClInclude>
     <None Include="..\..\Source\MyActors\MyActors.Build.cs">
       <Filter>Source\MyActors</Filter>
     </None>
-    <ClCompile Include="..\..\Source\MyActors\MyActors.cpp">
-      <Filter>Source\MyActors</Filter>
+    <Filter Include="Source\MyActors\Private">
+      <UniqueIdentifier>{D993876A-666D-3E4D-823A-D4C73EBCD638}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\MyActors\Private\ABAIController.cpp">
+      <Filter>Source\MyActors\Private</Filter>
     </ClCompile>
-    <ClInclude Include="..\..\Source\MyActors\MyActors.h">
-      <Filter>Source\MyActors</Filter>
+    <ClCompile Include="..\..\Source\MyActors\Private\ABAnimInstance.cpp">
+      <Filter>Source\MyActors\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MyActors\Private\ABCharacter.cpp">
+      <Filter>Source\MyActors\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MyActors\Private\ABCharacterStatComponent.cpp">
+      <Filter>Source\MyActors\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MyActors\Private\ABCharacterWidget.cpp">
+      <Filter>Source\MyActors\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MyActors\Private\ABGameInstance.cpp">
+      <Filter>Source\MyActors\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MyActors\Private\ABGameMode.cpp">
+      <Filter>Source\MyActors\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MyActors\Private\ABItemBox.cpp">
+      <Filter>Source\MyActors\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MyActors\Private\ABPawn.cpp">
+      <Filter>Source\MyActors\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MyActors\Private\ABPlayerController.cpp">
+      <Filter>Source\MyActors\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MyActors\Private\ABSection.cpp">
+      <Filter>Source\MyActors\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MyActors\Private\ABWeapon.cpp">
+      <Filter>Source\MyActors\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MyActors\Private\BTDecorator_IsInAttackRange.cpp">
+      <Filter>Source\MyActors\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MyActors\Private\BTService_Detect.cpp">
+      <Filter>Source\MyActors\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MyActors\Private\BTTask_Attack.cpp">
+      <Filter>Source\MyActors\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MyActors\Private\BTTask_FindPatrolPos.cpp">
+      <Filter>Source\MyActors\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MyActors\Private\BTTask_TurnToTarget.cpp">
+      <Filter>Source\MyActors\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MyActors\Private\Fountain.cpp">
+      <Filter>Source\MyActors\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MyActors\Private\MyActors.cpp">
+      <Filter>Source\MyActors\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MyActors\Private\MyActorsGameModeBase.cpp">
+      <Filter>Source\MyActors\Private</Filter>
+    </ClCompile>
+    <Filter Include="Source\MyActors\Public">
+      <UniqueIdentifier>{D471517F-DFEE-32BD-B033-E32B8DC9405E}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\MyActors\Public\ABAIController.h">
+      <Filter>Source\MyActors\Public</Filter>
     </ClInclude>
-    <ClCompile Include="..\..\Source\MyActors\MyActorsGameModeBase.cpp">
-      <Filter>Source\MyActors</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\MyActors\MyActorsGameModeBase.h">
-      <Filter>Source\MyActors</Filter>
+    <ClInclude Include="..\..\Source\MyActors\Public\ABAnimInstance.h">
+      <Filter>Source\MyActors\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MyActors\Public\ABCharacter.h">
+      <Filter>Source\MyActors\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MyActors\Public\ABCharacterStatComponent.h">
+      <Filter>Source\MyActors\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MyActors\Public\ABCharacterWidget.h">
+      <Filter>Source\MyActors\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MyActors\Public\ABGameInstance.h">
+      <Filter>Source\MyActors\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MyActors\Public\ABGameMode.h">
+      <Filter>Source\MyActors\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MyActors\Public\ABItemBox.h">
+      <Filter>Source\MyActors\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MyActors\Public\ABPawn.h">
+      <Filter>Source\MyActors\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MyActors\Public\ABPlayerController.h">
+      <Filter>Source\MyActors\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MyActors\Public\ABSection.h">
+      <Filter>Source\MyActors\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MyActors\Public\ABWeapon.h">
+      <Filter>Source\MyActors\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MyActors\Public\BTDecorator_IsInAttackRange.h">
+      <Filter>Source\MyActors\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MyActors\Public\BTService_Detect.h">
+      <Filter>Source\MyActors\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MyActors\Public\BTTask_Attack.h">
+      <Filter>Source\MyActors\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MyActors\Public\BTTask_FindPatrolPos.h">
+      <Filter>Source\MyActors\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MyActors\Public\BTTask_TurnToTarget.h">
+      <Filter>Source\MyActors\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MyActors\Public\Fountain.h">
+      <Filter>Source\MyActors\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MyActors\Public\MyActors.h">
+      <Filter>Source\MyActors\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MyActors\Public\MyActorsGameModeBase.h">
+      <Filter>Source\MyActors\Public</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

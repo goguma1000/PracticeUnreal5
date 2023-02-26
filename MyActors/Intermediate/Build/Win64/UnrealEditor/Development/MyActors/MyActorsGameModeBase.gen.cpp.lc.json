@@ -6,7 +6,7 @@
         "PCH": "d:\\unreal projects\\prac\\myactors\\intermediate\\build\\win64\\myactorseditor\\development\\engine\\sharedpch.engine.shadowerrors.h.pch",
         "Includes": [
             "d:\\unreal projects\\prac\\myactors\\intermediate\\build\\win64\\unrealeditor\\development\\myactors\\definitions.myactors.h",
-            "d:\\unreal projects\\prac\\myactors\\source\\myactors\\myactorsgamemodebase.h",
+            "d:\\unreal projects\\prac\\myactors\\source\\myactors\\public\\myactorsgamemodebase.h",
             "d:\\epic games\\ue_5.0\\engine\\source\\runtime\\engine\\classes\\gameframework\\gamemodebase.h",
             "d:\\epic games\\ue_5.0\\engine\\source\\runtime\\engine\\classes\\engine\\serverstatreplicator.h",
             "d:\\epic games\\ue_5.0\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\serverstatreplicator.generated.h",

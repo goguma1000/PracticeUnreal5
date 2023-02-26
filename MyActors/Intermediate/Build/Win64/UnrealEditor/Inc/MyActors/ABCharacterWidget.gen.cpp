@@ -5,7 +5,7 @@
 ===========================================================================*/
 
 #include "UObject/GeneratedCppIncludes.h"
-#include "MyActors/ABCharacterWidget.h"
+#include "MyActors/Public/ABCharacterWidget.h"
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeABCharacterWidget() {}
 // Cross Module References
@@ -45,13 +45,13 @@ void EmptyLinkFunctionForGeneratedCodeABCharacterWidget() {}
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UABCharacterWidget_Statics::Class_MetaDataParams[] = {
 		{ "Comment", "/**\n * \n */" },
 		{ "IncludePath", "ABCharacterWidget.h" },
-		{ "ModuleRelativePath", "ABCharacterWidget.h" },
+		{ "ModuleRelativePath", "Public/ABCharacterWidget.h" },
 	};
 #endif
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UABCharacterWidget_Statics::NewProp_HPProgressBar_MetaData[] = {
 		{ "EditInline", "true" },
-		{ "ModuleRelativePath", "ABCharacterWidget.h" },
+		{ "ModuleRelativePath", "Public/ABCharacterWidget.h" },
 	};
 #endif
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UABCharacterWidget_Statics::NewProp_HPProgressBar = { "HPProgressBar", nullptr, (EPropertyFlags)0x0040000000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UABCharacterWidget, HPProgressBar), Z_Construct_UClass_UProgressBar_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UABCharacterWidget_Statics::NewProp_HPProgressBar_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UABCharacterWidget_Statics::NewProp_HPProgressBar_MetaData)) };
@@ -89,15 +89,15 @@ void EmptyLinkFunctionForGeneratedCodeABCharacterWidget() {}
 		return UABCharacterWidget::StaticClass();
 	}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UABCharacterWidget);
-	struct Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_ABCharacterWidget_h_Statics
+	struct Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_Public_ABCharacterWidget_h_Statics
 	{
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
-	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_ABCharacterWidget_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UABCharacterWidget, UABCharacterWidget::StaticClass, TEXT("UABCharacterWidget"), &Z_Registration_Info_UClass_UABCharacterWidget, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UABCharacterWidget), 3577474379U) },
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_Public_ABCharacterWidget_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_UABCharacterWidget, UABCharacterWidget::StaticClass, TEXT("UABCharacterWidget"), &Z_Registration_Info_UClass_UABCharacterWidget, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UABCharacterWidget), 3422413502U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_ABCharacterWidget_h_343202291(TEXT("/Script/MyActors"),
-		Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_ABCharacterWidget_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_ABCharacterWidget_h_Statics::ClassInfo),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_Public_ABCharacterWidget_h_3756825224(TEXT("/Script/MyActors"),
+		Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_Public_ABCharacterWidget_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_Public_ABCharacterWidget_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

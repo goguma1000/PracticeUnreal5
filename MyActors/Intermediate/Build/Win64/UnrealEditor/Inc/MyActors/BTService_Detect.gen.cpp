@@ -5,7 +5,7 @@
 ===========================================================================*/
 
 #include "UObject/GeneratedCppIncludes.h"
-#include "MyActors/BTService_Detect.h"
+#include "MyActors/Public/BTService_Detect.h"
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeBTService_Detect() {}
 // Cross Module References
@@ -39,7 +39,7 @@ void EmptyLinkFunctionForGeneratedCodeBTService_Detect() {}
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UBTService_Detect_Statics::Class_MetaDataParams[] = {
 		{ "Comment", "/**\n * \n */" },
 		{ "IncludePath", "BTService_Detect.h" },
-		{ "ModuleRelativePath", "BTService_Detect.h" },
+		{ "ModuleRelativePath", "Public/BTService_Detect.h" },
 	};
 #endif
 	const FCppClassTypeInfoStatic Z_Construct_UClass_UBTService_Detect_Statics::StaticCppClassTypeInfo = {
@@ -73,15 +73,15 @@ void EmptyLinkFunctionForGeneratedCodeBTService_Detect() {}
 		return UBTService_Detect::StaticClass();
 	}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UBTService_Detect);
-	struct Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_BTService_Detect_h_Statics
+	struct Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_Public_BTService_Detect_h_Statics
 	{
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
-	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_BTService_Detect_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UBTService_Detect, UBTService_Detect::StaticClass, TEXT("UBTService_Detect"), &Z_Registration_Info_UClass_UBTService_Detect, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBTService_Detect), 67564762U) },
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_Public_BTService_Detect_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_UBTService_Detect, UBTService_Detect::StaticClass, TEXT("UBTService_Detect"), &Z_Registration_Info_UClass_UBTService_Detect, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBTService_Detect), 1923163289U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_BTService_Detect_h_1845280097(TEXT("/Script/MyActors"),
-		Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_BTService_Detect_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_BTService_Detect_h_Statics::ClassInfo),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_Public_BTService_Detect_h_2788584713(TEXT("/Script/MyActors"),
+		Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_Public_BTService_Detect_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_Public_BTService_Detect_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

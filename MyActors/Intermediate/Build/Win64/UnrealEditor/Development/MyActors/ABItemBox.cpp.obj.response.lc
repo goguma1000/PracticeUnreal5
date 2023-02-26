@@ -1,16 +1,20 @@
-"D:\Unreal Projects\prac\MyActors\Source\MyActors\ABItemBox.cpp"
+"D:\Unreal Projects\prac\MyActors\Source\MyActors\Private\ABItemBox.cpp"
 /I .
-/I ..\Intermediate\Build\Win64\UnrealEditor\Inc\Engine
+/I "D:\Unreal Projects\prac\MyActors\Source\MyActors\Private"
+/I "D:\Unreal Projects\prac\MyActors\Intermediate\Build\Win64\UnrealEditor\Inc\ArenaBattleSetting"
+/I "D:\Unreal Projects\prac\MyActors\Source"
+/I "D:\Unreal Projects\prac\MyActors\Source\ArenaBattleSetting\Public"
 /I Runtime
+/I Runtime\TraceLog\Public
+/I Runtime\Core\Public
+/I ..\Intermediate\Build\Win64\UnrealEditor\Inc\CoreUObject
+/I Runtime\CoreUObject\Public
+/I ..\Intermediate\Build\Win64\UnrealEditor\Inc\Engine
 /I ..\Shaders\Shared
 /I Runtime\Engine\Classes
 /I Runtime\Engine\Public
-/I Runtime\TraceLog\Public
-/I Runtime\Core\Public
 /I ..\Intermediate\Build\Win64\UnrealEditor\Inc\CoreOnline
 /I Runtime\CoreOnline\Public
-/I ..\Intermediate\Build\Win64\UnrealEditor\Inc\CoreUObject
-/I Runtime\CoreUObject\Public
 /I ..\Intermediate\Build\Win64\UnrealEditor\Inc\NetCore
 /I Runtime\Net
 /I Runtime\Net\Core\Classes
@@ -252,7 +256,7 @@
 /I ..\Intermediate\Build\Win64\UnrealEditor\Inc\AnimationDataController
 /I Developer\AnimationDataController\Public
 /I "D:\Unreal Projects\prac\MyActors\Intermediate\Build\Win64\UnrealEditor\Inc\MyActors"
-/I "D:\Unreal Projects\prac\MyActors\Source"
+/I "D:\Unreal Projects\prac\MyActors\Source\MyActors\Public"
 /I ThirdParty\mimalloc\include
 /I ThirdParty\LibTiff\Source\Win64
 /I ThirdParty\LibTiff\Source

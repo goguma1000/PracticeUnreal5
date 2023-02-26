@@ -1,0 +1,13 @@
+{
+    "Version": "1.1",
+    "Data": {
+        "Source": "d:\\unreal projects\\prac\\myactors\\intermediate\\build\\win64\\unrealeditor\\inc\\arenabattlesetting\\arenabattlesetting.init.gen.cpp",
+        "ProvidedModule": "",
+        "PCH": "d:\\unreal projects\\prac\\myactors\\intermediate\\build\\win64\\myactorseditor\\development\\engine\\sharedpch.engine.shadowerrors.h.pch",
+        "Includes": [
+            "d:\\unreal projects\\prac\\myactors\\intermediate\\build\\win64\\unrealeditor\\development\\arenabattlesetting\\definitions.arenabattlesetting.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

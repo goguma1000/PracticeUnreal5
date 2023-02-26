@@ -1,13 +1,13 @@
 {
     "Version": "1.1",
     "Data": {
-        "Source": "d:\\unreal projects\\prac\\myactors\\source\\myactors\\abplayercontroller.cpp",
+        "Source": "d:\\unreal projects\\prac\\myactors\\source\\myactors\\private\\abplayercontroller.cpp",
         "ProvidedModule": "",
         "PCH": "d:\\unreal projects\\prac\\myactors\\intermediate\\build\\win64\\myactorseditor\\development\\engine\\sharedpch.engine.shadowerrors.h.pch",
         "Includes": [
             "d:\\unreal projects\\prac\\myactors\\intermediate\\build\\win64\\unrealeditor\\development\\myactors\\definitions.myactors.h",
-            "d:\\unreal projects\\prac\\myactors\\source\\myactors\\abplayercontroller.h",
-            "d:\\unreal projects\\prac\\myactors\\source\\myactors\\myactors.h",
+            "d:\\unreal projects\\prac\\myactors\\source\\myactors\\public\\abplayercontroller.h",
+            "d:\\unreal projects\\prac\\myactors\\source\\myactors\\public\\myactors.h",
             "d:\\epic games\\ue_5.0\\engine\\source\\runtime\\engine\\public\\engineminimal.h",
             "d:\\epic games\\ue_5.0\\engine\\source\\runtime\\core\\public\\misc\\monolithicheaderboilerplate.h",
             "d:\\epic games\\ue_5.0\\engine\\source\\runtime\\coreuobject\\public\\coreuobject.h",

@@ -1,5 +1,6 @@
 {
 	"SourceFiles": [
+		"D:\\Unreal Projects\\prac\\MyActors\\Source\\ArenaBattleSetting\\ArenaBattleSetting.Build.cs",
 		"D:\\Unreal Projects\\prac\\MyActors\\Source\\MyActors\\MyActors.Build.cs",
 		"D:\\Unreal Projects\\prac\\MyActors\\Source\\MyActors.Target.cs",
 		"D:\\Unreal Projects\\prac\\MyActors\\Source\\MyActorsEditor.Target.cs"

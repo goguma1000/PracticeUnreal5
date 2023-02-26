@@ -1,13 +1,13 @@
 {
     "Version": "1.1",
     "Data": {
-        "Source": "d:\\unreal projects\\prac\\myactors\\source\\myactors\\abitembox.cpp",
+        "Source": "d:\\unreal projects\\prac\\myactors\\source\\myactors\\private\\abitembox.cpp",
         "ProvidedModule": "",
         "PCH": "d:\\unreal projects\\prac\\myactors\\intermediate\\build\\win64\\myactorseditor\\development\\engine\\sharedpch.engine.shadowerrors.h.pch",
         "Includes": [
             "d:\\unreal projects\\prac\\myactors\\intermediate\\build\\win64\\unrealeditor\\development\\myactors\\definitions.myactors.h",
-            "d:\\unreal projects\\prac\\myactors\\source\\myactors\\abitembox.h",
-            "d:\\unreal projects\\prac\\myactors\\source\\myactors\\myactors.h",
+            "d:\\unreal projects\\prac\\myactors\\source\\myactors\\public\\abitembox.h",
+            "d:\\unreal projects\\prac\\myactors\\source\\myactors\\public\\myactors.h",
             "d:\\epic games\\ue_5.0\\engine\\source\\runtime\\engine\\public\\engineminimal.h",
             "d:\\epic games\\ue_5.0\\engine\\source\\runtime\\core\\public\\misc\\monolithicheaderboilerplate.h",
             "d:\\epic games\\ue_5.0\\engine\\source\\runtime\\coreuobject\\public\\coreuobject.h",
@@ -206,9 +206,9 @@
             "d:\\epic games\\ue_5.0\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\gameplaystaticstypes.generated.h",
             "d:\\epic games\\ue_5.0\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\gameplaystatics.generated.h",
             "d:\\unreal projects\\prac\\myactors\\intermediate\\build\\win64\\unrealeditor\\inc\\myactors\\abitembox.generated.h",
-            "d:\\unreal projects\\prac\\myactors\\source\\myactors\\abweapon.h",
+            "d:\\unreal projects\\prac\\myactors\\source\\myactors\\public\\abweapon.h",
             "d:\\unreal projects\\prac\\myactors\\intermediate\\build\\win64\\unrealeditor\\inc\\myactors\\abweapon.generated.h",
-            "d:\\unreal projects\\prac\\myactors\\source\\myactors\\abcharacter.h",
+            "d:\\unreal projects\\prac\\myactors\\source\\myactors\\public\\abcharacter.h",
             "d:\\unreal projects\\prac\\myactors\\intermediate\\build\\win64\\unrealeditor\\inc\\myactors\\abcharacter.generated.h"
         ],
         "ImportedModules": [],

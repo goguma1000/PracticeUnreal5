@@ -5,7 +5,7 @@
 ===========================================================================*/
 
 #include "UObject/GeneratedCppIncludes.h"
-#include "MyActors/BTTask_TurnToTarget.h"
+#include "MyActors/Public/BTTask_TurnToTarget.h"
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeBTTask_TurnToTarget() {}
 // Cross Module References
@@ -39,7 +39,7 @@ void EmptyLinkFunctionForGeneratedCodeBTTask_TurnToTarget() {}
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UBTTask_TurnToTarget_Statics::Class_MetaDataParams[] = {
 		{ "Comment", "/**\n * \n */" },
 		{ "IncludePath", "BTTask_TurnToTarget.h" },
-		{ "ModuleRelativePath", "BTTask_TurnToTarget.h" },
+		{ "ModuleRelativePath", "Public/BTTask_TurnToTarget.h" },
 	};
 #endif
 	const FCppClassTypeInfoStatic Z_Construct_UClass_UBTTask_TurnToTarget_Statics::StaticCppClassTypeInfo = {
@@ -73,15 +73,15 @@ void EmptyLinkFunctionForGeneratedCodeBTTask_TurnToTarget() {}
 		return UBTTask_TurnToTarget::StaticClass();
 	}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UBTTask_TurnToTarget);
-	struct Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_BTTask_TurnToTarget_h_Statics
+	struct Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_Public_BTTask_TurnToTarget_h_Statics
 	{
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
-	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_BTTask_TurnToTarget_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UBTTask_TurnToTarget, UBTTask_TurnToTarget::StaticClass, TEXT("UBTTask_TurnToTarget"), &Z_Registration_Info_UClass_UBTTask_TurnToTarget, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBTTask_TurnToTarget), 2930748835U) },
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_Public_BTTask_TurnToTarget_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_UBTTask_TurnToTarget, UBTTask_TurnToTarget::StaticClass, TEXT("UBTTask_TurnToTarget"), &Z_Registration_Info_UClass_UBTTask_TurnToTarget, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBTTask_TurnToTarget), 1802213887U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_BTTask_TurnToTarget_h_2838269093(TEXT("/Script/MyActors"),
-		Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_BTTask_TurnToTarget_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_BTTask_TurnToTarget_h_Statics::ClassInfo),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_Public_BTTask_TurnToTarget_h_2035249054(TEXT("/Script/MyActors"),
+		Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_Public_BTTask_TurnToTarget_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_MyActors_Source_MyActors_Public_BTTask_TurnToTarget_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

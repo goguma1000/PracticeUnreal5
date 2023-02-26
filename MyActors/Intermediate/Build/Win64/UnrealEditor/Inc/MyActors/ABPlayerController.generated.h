@@ -13,10 +13,10 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define MYACTORS_ABPlayerController_generated_h
 
-#define FID_MyActors_Source_MyActors_ABPlayerController_h_13_SPARSE_DATA
-#define FID_MyActors_Source_MyActors_ABPlayerController_h_13_RPC_WRAPPERS
-#define FID_MyActors_Source_MyActors_ABPlayerController_h_13_RPC_WRAPPERS_NO_PURE_DECLS
-#define FID_MyActors_Source_MyActors_ABPlayerController_h_13_INCLASS_NO_PURE_DECLS \
+#define FID_MyActors_Source_MyActors_Public_ABPlayerController_h_13_SPARSE_DATA
+#define FID_MyActors_Source_MyActors_Public_ABPlayerController_h_13_RPC_WRAPPERS
+#define FID_MyActors_Source_MyActors_Public_ABPlayerController_h_13_RPC_WRAPPERS_NO_PURE_DECLS
+#define FID_MyActors_Source_MyActors_Public_ABPlayerController_h_13_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesAABPlayerController(); \
 	friend struct Z_Construct_UClass_AABPlayerController_Statics; \
@@ -25,7 +25,7 @@ public: \
 	DECLARE_SERIALIZER(AABPlayerController)
 
 
-#define FID_MyActors_Source_MyActors_ABPlayerController_h_13_INCLASS \
+#define FID_MyActors_Source_MyActors_Public_ABPlayerController_h_13_INCLASS \
 private: \
 	static void StaticRegisterNativesAABPlayerController(); \
 	friend struct Z_Construct_UClass_AABPlayerController_Statics; \
@@ -34,7 +34,7 @@ public: \
 	DECLARE_SERIALIZER(AABPlayerController)
 
 
-#define FID_MyActors_Source_MyActors_ABPlayerController_h_13_STANDARD_CONSTRUCTORS \
+#define FID_MyActors_Source_MyActors_Public_ABPlayerController_h_13_STANDARD_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API AABPlayerController(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(AABPlayerController) \
@@ -47,7 +47,7 @@ private: \
 public:
 
 
-#define FID_MyActors_Source_MyActors_ABPlayerController_h_13_ENHANCED_CONSTRUCTORS \
+#define FID_MyActors_Source_MyActors_Public_ABPlayerController_h_13_ENHANCED_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API AABPlayerController(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()) : Super(ObjectInitializer) { }; \
 private: \
@@ -60,25 +60,25 @@ public: \
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(AABPlayerController)
 
 
-#define FID_MyActors_Source_MyActors_ABPlayerController_h_10_PROLOG
-#define FID_MyActors_Source_MyActors_ABPlayerController_h_13_GENERATED_BODY_LEGACY \
+#define FID_MyActors_Source_MyActors_Public_ABPlayerController_h_10_PROLOG
+#define FID_MyActors_Source_MyActors_Public_ABPlayerController_h_13_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_MyActors_Source_MyActors_ABPlayerController_h_13_SPARSE_DATA \
-	FID_MyActors_Source_MyActors_ABPlayerController_h_13_RPC_WRAPPERS \
-	FID_MyActors_Source_MyActors_ABPlayerController_h_13_INCLASS \
-	FID_MyActors_Source_MyActors_ABPlayerController_h_13_STANDARD_CONSTRUCTORS \
+	FID_MyActors_Source_MyActors_Public_ABPlayerController_h_13_SPARSE_DATA \
+	FID_MyActors_Source_MyActors_Public_ABPlayerController_h_13_RPC_WRAPPERS \
+	FID_MyActors_Source_MyActors_Public_ABPlayerController_h_13_INCLASS \
+	FID_MyActors_Source_MyActors_Public_ABPlayerController_h_13_STANDARD_CONSTRUCTORS \
 public: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-#define FID_MyActors_Source_MyActors_ABPlayerController_h_13_GENERATED_BODY \
+#define FID_MyActors_Source_MyActors_Public_ABPlayerController_h_13_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_MyActors_Source_MyActors_ABPlayerController_h_13_SPARSE_DATA \
-	FID_MyActors_Source_MyActors_ABPlayerController_h_13_RPC_WRAPPERS_NO_PURE_DECLS \
-	FID_MyActors_Source_MyActors_ABPlayerController_h_13_INCLASS_NO_PURE_DECLS \
-	FID_MyActors_Source_MyActors_ABPlayerController_h_13_ENHANCED_CONSTRUCTORS \
+	FID_MyActors_Source_MyActors_Public_ABPlayerController_h_13_SPARSE_DATA \
+	FID_MyActors_Source_MyActors_Public_ABPlayerController_h_13_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_MyActors_Source_MyActors_Public_ABPlayerController_h_13_INCLASS_NO_PURE_DECLS \
+	FID_MyActors_Source_MyActors_Public_ABPlayerController_h_13_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -86,7 +86,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 template<> MYACTORS_API UClass* StaticClass<class AABPlayerController>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID FID_MyActors_Source_MyActors_ABPlayerController_h
+#define CURRENT_FILE_ID FID_MyActors_Source_MyActors_Public_ABPlayerController_h
 
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
