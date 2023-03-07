@@ -49,7 +49,7 @@ void UABCharacterStatComponent::SetDamage(float NewDamage) {
 	SetHP(FMath::Clamp<float>(CurrentHP - NewDamage, 0.0f, CurrentStatData->MaxHP));
 }
 
-float UABCharacterStatComponent::GetAttack() {
+float UABCharacterStatComponent::GetAttack() const{
 	ABCHECK(nullptr != CurrentStatData, 0.0f);
 	return CurrentStatData->Attack;
 }
@@ -63,8 +63,12 @@ void UABCharacterStatComponent::SetHP(float NewHP) {
 	}
 }
 
-float UABCharacterStatComponent::GetHPRatio() {
+float UABCharacterStatComponent::GetHPRatio() const{
 	ABCHECK(nullptr != CurrentStatData, 0.0f);
 
 	return(CurrentStatData->MaxHP < KINDA_SMALL_NUMBER) ? 0.0f : (CurrentHP / CurrentStatData->MaxHP);
+}
+
+int32 UABCharacterStatComponent::GetDropExp() const {
+	return CurrentStatData->DropExp;
 }

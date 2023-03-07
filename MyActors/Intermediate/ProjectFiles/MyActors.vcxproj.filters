@@ -89,6 +89,12 @@
     <ClCompile Include="..\..\Source\MyActors\Private\ABGameMode.cpp">
       <Filter>Source\MyActors\Private</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\MyActors\Private\ABGameState.cpp">
+      <Filter>Source\MyActors\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MyActors\Private\ABHUDWidget.cpp">
+      <Filter>Source\MyActors\Private</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\MyActors\Private\ABItemBox.cpp">
       <Filter>Source\MyActors\Private</Filter>
     </ClCompile>
@@ -96,6 +102,9 @@
       <Filter>Source\MyActors\Private</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\MyActors\Private\ABPlayerController.cpp">
+      <Filter>Source\MyActors\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MyActors\Private\ABPlayerState.cpp">
       <Filter>Source\MyActors\Private</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\MyActors\Private\ABSection.cpp">
@@ -152,6 +161,12 @@
     <ClInclude Include="..\..\Source\MyActors\Public\ABGameMode.h">
       <Filter>Source\MyActors\Public</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\MyActors\Public\ABGameState.h">
+      <Filter>Source\MyActors\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MyActors\Public\ABHUDWidget.h">
+      <Filter>Source\MyActors\Public</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\MyActors\Public\ABItemBox.h">
       <Filter>Source\MyActors\Public</Filter>
     </ClInclude>
@@ -159,6 +174,9 @@
       <Filter>Source\MyActors\Public</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\MyActors\Public\ABPlayerController.h">
+      <Filter>Source\MyActors\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MyActors\Public\ABPlayerState.h">
       <Filter>Source\MyActors\Public</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\MyActors\Public\ABSection.h">

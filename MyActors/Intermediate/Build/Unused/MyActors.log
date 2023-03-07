@@ -3,19 +3,33 @@
   Using 'git status' to determine working set for adaptive non-unity build (D:\Unreal Projects\prac).
   Building MyActorsEditor...
   Using Visual Studio 2019 14.29.30146 toolchain (C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133) and Windows 10.0.19041.0 SDK (C:\Program Files (x86)\Windows Kits\10).
-  [Adaptive Build] Excluded from MyActors unity file: ABAIController.cpp, ABAnimInstance.cpp, ABCharacter.cpp, ABCharacterStatComponent.cpp, ABCharacterWidget.cpp, ABGameInstance.cpp, ABGameMode.cpp, ABItemBox.cpp, ABPawn.cpp, ABPlayerController.cpp, ABSection.cpp, ABWeapon.cpp, BTDecorator_IsInAttackRange.cpp, BTService_Detect.cpp, BTTask_Attack.cpp, BTTask_FindPatrolPos.cpp, BTTask_TurnToTarget.cpp, Fountain.cpp, MyActors.cpp, MyActorsGameModeBase.cpp
-  [Adaptive Build] Excluded from ArenaBattleSetting unity file: ABCharacterSetting.cpp, ArenaBattleSetting.cpp
+  [Adaptive Build] Excluded from MyActors unity file: ABAIController.cpp, ABCharacter.cpp, ABCharacterStatComponent.cpp, ABGameMode.cpp, ABHUDWidget.cpp, ABPlayerController.cpp, ABPlayerState.cpp, MyActors.cpp
   Determining max actions to execute in parallel (6 physical cores, 6 logical cores)
     Executing up to 6 processes, one per physical core
-    Requested 1.5 GB free memory per action, 7.65 GB available: limiting max parallel actions to 5
-  Building 6 actions with 5 processes...
-  [1/6] Compile MyActors.init.gen.cpp
-  [2/6] Compile ABSection.gen.cpp
-  [3/6] Compile ABSection.cpp
-  [4/6] Link UnrealEditor-MyActors.lib
+    Requested 1.5 GB free memory per action, 3.99 GB available: limiting max parallel actions to 2
+  Building 21 actions with 2 processes...
+  [1/21] Compile BTService_Detect.cpp
+  [2/21] Compile ABPlayerController.cpp
+  [3/21] Compile BTDecorator_IsInAttackRange.cpp
+  [4/21] Compile ABGameMode.cpp
+  [5/21] Compile ABHUDWidget.cpp
+  [6/21] Compile ABItemBox.cpp
+  [7/21] Compile ABSection.cpp
+  [8/21] Compile ABCharacterStatComponent.cpp
+  [9/21] Compile BTTask_Attack.cpp
+  [10/21] Compile ABCharacterStatComponent.gen.cpp
+  [11/21] Compile BTTask_TurnToTarget.cpp
+  [12/21] Compile ABCharacter.cpp
+  [13/21] Compile ABPlayerState.gen.cpp
+  [14/21] Compile ABCharacter.gen.cpp
+  [15/21] Compile ABPlayerController.gen.cpp
+  [16/21] Compile ABPlayerState.cpp
+  [17/21] Compile ABCharacterWidget.cpp
+  [18/21] Compile MyActors.init.gen.cpp
+  [19/21] Link UnrealEditor-MyActors.lib
      D:\Unreal Projects\prac\MyActors\Intermediate\Build\Win64\UnrealEditor\Development\MyActors\UnrealEditor-MyActors.lib 라이브러리 및 D:\Unreal Projects\prac\MyActors\Intermediate\Build\Win64\UnrealEditor\Development\MyActors\UnrealEditor-MyActors.exp 개체를 생성하고 있습니다.
-  [5/6] Link UnrealEditor-MyActors.dll
+  [20/21] Link UnrealEditor-MyActors.dll
      D:\Unreal Projects\prac\MyActors\Intermediate\Build\Win64\UnrealEditor\Development\MyActors\UnrealEditor-MyActors.suppressed.lib 라이브러리 및 D:\Unreal Projects\prac\MyActors\Intermediate\Build\Win64\UnrealEditor\Development\MyActors\UnrealEditor-MyActors.suppressed.exp 개체를 생성하고 있습니다.
-  [6/6] WriteMetadata MyActorsEditor.target
-  Total time in Parallel executor: 9.70 seconds
-  Total execution time: 10.83 seconds
+  [21/21] WriteMetadata MyActorsEditor.target
+  Total time in Parallel executor: 327.01 seconds
+  Total execution time: 334.13 seconds

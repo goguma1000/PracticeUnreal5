@@ -8,8 +8,8 @@
 #include "UObject/ScriptMacros.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
-class UPrimitiveComponent;
 class AActor;
+class UPrimitiveComponent;
 struct FHitResult;
 #ifdef MYACTORS_ABSection_generated_h
 #error "ABSection.generated.h already included, missing '#pragma once' in ABSection.h"
@@ -19,12 +19,14 @@ struct FHitResult;
 #define FID_MyActors_Source_MyActors_Public_ABSection_h_12_SPARSE_DATA
 #define FID_MyActors_Source_MyActors_Public_ABSection_h_12_RPC_WRAPPERS \
  \
+	DECLARE_FUNCTION(execOnKeyNPCDestroyed); \
 	DECLARE_FUNCTION(execOnGateTriggerBeginOverlap); \
 	DECLARE_FUNCTION(execOnTriggerBeginOverlap);
 
 
 #define FID_MyActors_Source_MyActors_Public_ABSection_h_12_RPC_WRAPPERS_NO_PURE_DECLS \
  \
+	DECLARE_FUNCTION(execOnKeyNPCDestroyed); \
 	DECLARE_FUNCTION(execOnGateTriggerBeginOverlap); \
 	DECLARE_FUNCTION(execOnTriggerBeginOverlap);
 

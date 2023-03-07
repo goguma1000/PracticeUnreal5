@@ -209,7 +209,11 @@
             "d:\\unreal projects\\prac\\myactors\\source\\myactors\\public\\abcharacter.h",
             "d:\\unreal projects\\prac\\myactors\\intermediate\\build\\win64\\unrealeditor\\inc\\myactors\\abcharacter.generated.h",
             "d:\\unreal projects\\prac\\myactors\\source\\myactors\\public\\abitembox.h",
-            "d:\\unreal projects\\prac\\myactors\\intermediate\\build\\win64\\unrealeditor\\inc\\myactors\\abitembox.generated.h"
+            "d:\\unreal projects\\prac\\myactors\\intermediate\\build\\win64\\unrealeditor\\inc\\myactors\\abitembox.generated.h",
+            "d:\\unreal projects\\prac\\myactors\\source\\myactors\\public\\abplayercontroller.h",
+            "d:\\unreal projects\\prac\\myactors\\intermediate\\build\\win64\\unrealeditor\\inc\\myactors\\abplayercontroller.generated.h",
+            "d:\\unreal projects\\prac\\myactors\\source\\myactors\\public\\abgamemode.h",
+            "d:\\unreal projects\\prac\\myactors\\intermediate\\build\\win64\\unrealeditor\\inc\\myactors\\abgamemode.generated.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []
